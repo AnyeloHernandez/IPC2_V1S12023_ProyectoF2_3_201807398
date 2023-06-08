@@ -21,3 +21,25 @@ def cargar_usuarios_xml():
     return listaenlazada
         #print(f"nombre: {nombre} {apellido}, telefono: {telefono}, correo {correo}")
 
+def nuevo_usuario_xml(nombre, apellido, telefono: int, correo, contrasenna):
+    tree = ET.parse('db/usuarios.xml')
+    root = tree.getroot()
+
+    # Añadimos el usuario
+    texto = f'''
+    <usuario>
+    <rol>cliente</rol>
+    <nombre>{nombre}</nombre>
+    <apellido>{apellido}</apellido>
+    <telefono>{telefono}</telefono>
+    <correo>{correo}</correo>
+    <contrasena>{contrasenna}</contrasena>
+    </usuario>
+        '''
+    # print(texto)
+    usuario = ET.fromstring(texto)
+    root.append(usuario)
+
+    # Escribe en el XML
+    tree.write('db/usuarios.xml')
+    print("Se añadio el usuario correctamente.")

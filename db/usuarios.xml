@@ -9,6 +9,14 @@
 </usuario>
 <usuario>
 <rol>administrador</rol>
+<nombre>admin</nombre>
+<apellido>mago</apellido>
+<telefono>123456789</telefono>
+<correo>admin@ejemplo.com</correo>
+<contrasena>admin</contrasena>
+</usuario>
+<usuario>
+<rol>administrador</rol>
 <nombre>Jane</nombre>
 <apellido>Smith</apellido>
 <telefono>987654321</telefono>
