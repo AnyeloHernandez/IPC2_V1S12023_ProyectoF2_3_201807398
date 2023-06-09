@@ -1,8 +1,8 @@
 <usuarios>
 <usuario>
 <rol>cliente</rol>
-<nombre>John</nombre>
-<apellido>Doe</apellido>
+<nombre>prueba</nombre>
+<apellido>editar</apellido>
 <telefono>123456789</telefono>
 <correo>john.doe@example.com</correo>
 <contrasena>mipassword123</contrasena>
@@ -23,4 +23,40 @@
 <correo>jane.smith@example.com</correo>
 <contrasena>password456</contrasena>
 </usuario>
-</usuarios>
+<usuario>
+<rol>administrador</rol>
+<nombre>admin</nombre>
+<apellido>si</apellido>
+<telefono>987654321</telefono>
+<correo>123</correo>
+<contrasena>123</contrasena>
+</usuario>
+<usuario>
+    <rol>administrador</rol>
+    <nombre>admon</nombre>
+    <apellido>mon</apellido>
+    <telefono>333333</telefono>
+    <correo>a@correo.com</correo>
+    <contrasena>bucket</contrasena>
+    </usuario><usuario>
+    <rol>cliente</rol>
+    <nombre>admin2</nombre>
+    <apellido>2</apellido>
+    <telefono>2</telefono>
+    <correo>admin2</correo>
+    <contrasena>admin</contrasena>
+    </usuario><usuario>
+    <rol>cliente</rol>
+    <nombre>123</nombre>
+    <apellido>123</apellido>
+    <telefono>12</telefono>
+    <correo>12</correo>
+    <contrasena>12</contrasena>
+    </usuario><usuario>
+    <rol>cliente</rol>
+    <nombre>a</nombre>
+    <apellido>a</apellido>
+    <telefono>1</telefono>
+    <correo>a</correo>
+    <contrasena>a</contrasena>
+    </usuario></usuarios>

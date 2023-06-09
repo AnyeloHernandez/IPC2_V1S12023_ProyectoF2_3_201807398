@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from models.usuarios import Usuario
-from models.lista_enlazada import *
+from models.lista_enlazada import ListaEnlazada
 
 def cargar_usuarios_xml():
     tree = ET.parse('db/usuarios.xml')
@@ -43,3 +43,25 @@ def nuevo_usuario_xml(nombre, apellido, telefono: int, correo, contrasenna):
     # Escribe en el XML
     tree.write('db/usuarios.xml')
     print("Se añadio el usuario correctamente.")
+
+def modificar_xml(usuario_editado, index):
+    tree = ET.parse('db/usuarios.xml')
+    root = tree.getroot()
+    
+    rol = root.find(f"usuario[{index}]/rol")
+    nombre = root.find(f"usuario[{index}]/nombre") # etiqueta con indice y etiqueta hija, en i debe ir el indice
+    apellido = root.find(f"usuario[{index}]/apellido")
+    telefono = root.find(f"usuario[{index}]/telefono")
+    correo = root.find(f"usuario[{index}]/correo")
+    contrasenna = root.find(f"usuario[{index}]/contrasena")
+    
+    # Edita el XML
+    rol.text = usuario_editado.rol
+    nombre.text = usuario_editado.nombre
+    apellido.text = usuario_editado.apellido
+    telefono.text = usuario_editado.telefono
+    correo.text = usuario_editado.correo
+    contrasenna.text = usuario_editado.contrasenna
+
+    # Escribe los cambios en el XML
+    tree.write("db/usuarios.xml")
