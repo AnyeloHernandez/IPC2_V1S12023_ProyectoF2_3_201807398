@@ -32,7 +32,7 @@ class ListaEnlazada:
             if actual.dato.correo == correo and actual.dato.contrasenna == contrasenna:
                 if actual.dato.rol == "administrador":
                     # Muestra el menu de administrador
-                    print("Se ingreso como administrador")
+                    # print("Se ingreso como administrador")
                     return 1
                 elif actual.dato.rol == "cliente":
                     # Muestra el menu de cliente

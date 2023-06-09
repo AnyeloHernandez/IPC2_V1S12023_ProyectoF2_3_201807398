@@ -1,6 +1,4 @@
 from gui_cli.cli import Cli
-from models.usuarios import Usuario
-from models.carga_xml import cargar_usuarios_xml
 from models.lista_enlazada import *
 
 if __name__ == '__main__':
