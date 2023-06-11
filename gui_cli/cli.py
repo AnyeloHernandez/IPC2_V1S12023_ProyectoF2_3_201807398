@@ -1,7 +1,7 @@
 from models.carga_xml import *
 
 lista_enlazada_usuarios = cargar_usuarios_xml()
-
+lista_doble_enlazada_salas = cargar_salas_xml()
 
 class Cli:
     global marco
@@ -74,17 +74,21 @@ class Cli:
                 print("Ingrese una opción válida.")
 
     def menu_registrar(self, rol='cliente'):
-        nombre = input("Ingrese su nombre: ")
-        apellido = input("Ingrese su apellido: ")
-        telefono = int(input("Ingrese su número de telefono: ")) # Revisar si se puede con str o int
-        correo = input("Ingrese su correo: ")
-        contrasenna = input("Ingrese su contraseña: ")
-        # Instanciamos un nuevo usuario
-        nuevo_usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasenna)
-        # Lo cargamos en el XML
-        nuevo_usuario_xml(nombre, apellido, telefono, correo, contrasenna)
-        # Añadimos el objeto a la lista enlazada
-        lista_enlazada_usuarios.add(nuevo_usuario)
+        try:
+            nombre = input("Ingrese su nombre: ")
+            apellido = input("Ingrese su apellido: ")
+            telefono = int(input("Ingrese su número de teléfono: ")) # Revisar si se puede con str o int
+            correo = input("Ingrese su correo: ")
+            contrasenna = input("Ingrese su contraseña: ")
+            # Instanciamos un nuevo usuario
+            nuevo_usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasenna)
+            # Lo cargamos en el XML
+            nuevo_usuario_xml(nombre, apellido, telefono, correo, contrasenna)
+            # Añadimos el objeto a la lista enlazada
+            lista_enlazada_usuarios.add(nuevo_usuario)
+        except ValueError:
+            print("Ingrese un número de teléfono válido")
+        
 
     def menu_administrador(self):
         print("+++Bienvenido al menu de administrador super secreto+++")
@@ -103,7 +107,7 @@ class Cli:
             elif opcion == "2": # Gestiona peliculas
                 pass
             elif opcion == "3": # Gestiona salas
-                pass
+                self.menu_administrador_gestionar_salas()
             elif opcion == "4": # Gestiona boletos comprados
                 pass
             elif opcion == "5":
@@ -128,7 +132,7 @@ class Cli:
             elif opcion == "2": # Editar usuario
                 self.admin_editar_usuarios()
             elif opcion == "3": # Eliminar usuarios
-                pass
+                self.admin_eliminar_usuarios()
             elif opcion == "4": # Ver usuarios
                 lista_enlazada_usuarios.imprimir_lista()
             elif opcion == "5":
@@ -159,6 +163,55 @@ class Cli:
 
     def admin_editar_usuarios(self):
         correo = input("Ingrese el correo del usuario que quiere editar: ")
-        usuario, index = lista_enlazada_usuarios.editar_usuario(correo)
-        modificar_xml(usuario, index)
-        print("Se ha editado el usuario.")
+        try:
+            usuario, index = lista_enlazada_usuarios.editar_usuario(correo)
+            modificar_usuarios_xml(usuario, index)
+            print("Se ha editado el usuario.")
+        except:
+            print("Ocurrio un error.")
+
+    def admin_eliminar_usuarios(self):
+        correo = input("Ingrese el correo del usuario que quiere eliminar: ")
+        usuario_eliminado = lista_enlazada_usuarios.delete(correo)
+        if usuario_eliminado == 1:
+            eliminar_usuario_xml(correo)
+            print(f"Usuario {correo} eliminado.")
+        else:
+            print("No se encontró el usuario.")
+
+    def menu_administrador_gestionar_salas(self):
+        while True:
+            print(marco)
+            print("1. Habilitar una sala nueva")
+            print("2. Editar salas existentes")
+            print("3. Deshabilitar salas")
+            print("4. Ver salas disponibles")
+            print("5. Salir del menu")
+            print(marco)
+            opcion = input("Ingrese una opción: ")
+            if opcion == "1": # Crea salas
+                self.admin_crear_salas()
+            elif opcion == "2": # Editar salas
+                self.admin_editar_salas()
+            elif opcion == "3": # Eliminar salas
+                pass
+            elif opcion == "4": # Ver salas
+                lista_doble_enlazada_salas.imprimir_lista()
+            elif opcion == "5":
+                print("Se ha regresado al menu principal de administrador")
+                break
+            else:
+                print("Ingrese una opción válida.")
+
+    def admin_crear_salas(self):
+        numero = int(input("Ingrese el nuevo número de sala: #USACIPC2_201807398_"))
+        asientos = int(input("Ingrese el número de asientos: "))
+        nueva_sala = Sala(numero, asientos)
+        nueva_sala_xml(nueva_sala)
+        # Futuro ingeniero :)
+        numero = '#USACIPC2_201807398_' + str(numero)
+        nueva_sala = Sala(numero, asientos)
+        lista_doble_enlazada_salas.add(nueva_sala)
+
+    def admin_editar_salas(self):
+        pass

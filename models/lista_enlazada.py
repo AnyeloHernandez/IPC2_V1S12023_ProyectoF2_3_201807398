@@ -71,4 +71,20 @@ class ListaEnlazada:
                 index += 1
             
             actual = actual.siguiente
-            
+
+    def delete(self, correo):
+        actual = self.head
+        anterior = None
+
+        while actual is not None:
+            if actual.dato.correo == correo:
+                if anterior is None:
+                    self.head = actual.siguiente
+                    return 1
+                else:
+                    anterior.siguiente = actual.siguiente
+                    return 1
+            anterior = actual
+            actual = actual.siguiente
+        
+        
