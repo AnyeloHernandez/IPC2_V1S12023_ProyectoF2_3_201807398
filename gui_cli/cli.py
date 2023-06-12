@@ -168,7 +168,7 @@ class Cli:
             modificar_usuarios_xml(usuario, index)
             print("Se ha editado el usuario.")
         except:
-            print("Ocurrio un error.")
+            print("Ocurrio un error. Se salió del modo edición.")
 
     def admin_eliminar_usuarios(self):
         correo = input("Ingrese el correo del usuario que quiere eliminar: ")
@@ -194,7 +194,7 @@ class Cli:
             elif opcion == "2": # Editar salas
                 self.admin_editar_salas()
             elif opcion == "3": # Eliminar salas
-                pass
+                self.admin_eliminar_salas()
             elif opcion == "4": # Ver salas
                 lista_doble_enlazada_salas.imprimir_lista()
             elif opcion == "5":
@@ -208,10 +208,27 @@ class Cli:
         asientos = int(input("Ingrese el número de asientos: "))
         nueva_sala = Sala(numero, asientos)
         nueva_sala_xml(nueva_sala)
-        # Futuro ingeniero :)
+
         numero = '#USACIPC2_201807398_' + str(numero)
         nueva_sala = Sala(numero, asientos)
         lista_doble_enlazada_salas.add(nueva_sala)
 
     def admin_editar_salas(self):
-        pass
+        try:
+            numero_sala = int(input("Ingrese el número de sala que desea editar: "))
+            sala_editada, index = lista_doble_enlazada_salas.editar_sala(numero_sala)
+            modificar_sala_xml(sala_editada, index)
+            print(f"Se modifico la sala #USACIPC2_201807398_{numero_sala}")
+        except:
+            print("Ocurrio un error. Se salió del modo edición.")
+
+    def admin_eliminar_salas(self):
+        try:
+            numero_sala = int(input("Ingrese el número de sala que desea elminar: "))
+            sala_eliminada = lista_doble_enlazada_salas.delete(numero_sala)
+            lista_doble_enlazada_salas.imprimir_lista()
+            if sala_eliminada == 1:
+                eliminar_sala_xml(numero_sala)
+                print(f"Sala #USACIPC2_201807398_{numero_sala} eliminada.")
+        except ValueError:
+            print("Ingrese un valor valido")

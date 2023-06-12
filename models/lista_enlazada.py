@@ -67,8 +67,7 @@ class ListaEnlazada:
                 # Mandamos un objeto a modificar xml, junto a su index
                 usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasenna)
                 return usuario, index
-            else:
-                index += 1
+            index += 1
             
             actual = actual.siguiente
 

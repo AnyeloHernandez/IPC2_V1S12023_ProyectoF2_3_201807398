@@ -111,7 +111,38 @@ def nueva_sala_xml(sala):
 
     sala = ET.fromstring(datos_sala)
     cine = root.find('cine')
-    cine.append(sala)
+    salas = cine.find('salas')
+    salas.append(sala)
 
     tree.write('db/salas.xml')
     print("Se ha habilitado la sala correctamente.")
+
+def eliminar_sala_xml(numero_sala):
+    sala_eliminada = "#USACIPC2_201807398_" + str(numero_sala)
+    tree = ET.parse('db/salas.xml')
+    root = tree.getroot()
+
+    cine = root.find('cine')
+    salas = cine.find('salas') # Busca las salas en el cine en este orden debido al xml root>cine>salas
+
+    # Busca la sala y si la encuentra la elimina
+    for sala in salas.findall('sala'):
+        if sala.find('numero').text == sala_eliminada:
+            salas.remove(sala)
+            tree.write('db/salas.xml')
+            break
+
+def modificar_sala_xml(sala_editada, index):
+    tree = ET.parse('db/salas.xml')
+    root = tree.getroot()
+    cine = root.find('cine')
+    salas = cine.find('salas')
+
+    numero_sala = salas.find(f"sala[{index}]/numero")
+    asientos = salas.find(f"sala[{index}]/asientos")
+    
+    # Edita el XML para las salas
+    numero_sala.text = '#USACIPC2_201807398_' + sala_editada.numero
+    asientos.text = sala_editada.asientos
+
+    tree.write('db/salas.xml')
