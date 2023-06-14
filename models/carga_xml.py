@@ -1,8 +1,10 @@
 import xml.etree.ElementTree as ET
 from models.usuarios import Usuario
 from models.salas import Sala
+from models.peliculas import Pelicula, Categoria
 from models.lista_enlazada import ListaEnlazada
 from models.lista_doble_enlazada import ListaDobleEnlazada
+from models.lista_doble_circular import ListaDobleCircular
 
 def cargar_usuarios_xml():
     tree = ET.parse('db/usuarios.xml')
@@ -79,10 +81,122 @@ def eliminar_usuario_xml(correo):
             tree.write('db/usuarios.xml')
             break
 
+def eliminar_pelicula_xml(titulo):
+    tree = ET.parse('db/peliculas.xml')
+    root = tree.getroot()
+
+    for categoria in root.findall('categoria'):
+        peliculas = categoria.find('peliculas')
+
+        for pelicula in peliculas.findall('pelicula'):
+            if titulo == pelicula.find('titulo').text:
+                peliculas.remove(pelicula)
+                tree.write('db/peliculas.xml')
+        
+
+def modificar_pelicula_xml(cate, index):
+    tree = ET.parse('db/peliculas.xml')
+    root = tree.getroot()
+
+    for categoria in root.findall('categoria'):
+        nombre_categoria = categoria.find('nombre').text
+        
+        if cate.nombre == nombre_categoria:
+            print("Se encontro la categoria")
+            peliculas = categoria.find('peliculas')
+
+            titulo = peliculas.find(f'pelicula[{index}]/titulo')
+            director = peliculas.find(f'pelicula[{index}]/director')
+            anno = peliculas.find(f'pelicula[{index}]/anio')
+            fecha = peliculas.find(f'pelicula[{index}]/fecha')
+            hora = peliculas.find(f'pelicula[{index}]/hora')
+
+            # Editamos el XML
+            titulo.text = cate.pelicula.titulo
+            director.text = cate.pelicula.director
+            anno.text = cate.pelicula.anno
+            fecha.text = cate.pelicula.fecha
+            hora.text = cate.pelicula.hora
+
+            # Lo escribimos en el XML
+            tree.write('db/peliculas.xml')
+
+
 def cargar_peliculas_xml():
     tree = ET.parse('db/peliculas.xml')
     root = tree.getroot()
-    pass
+    #categorias = root.find('categoria')
+    listadoblecircular = ListaDobleCircular()
+    
+    #print(categoria.findall('nombre'))
+
+    for categoria in root.findall('categoria'):
+       # print(f"Peliculas de {categoria.find('nombre').text}")
+       nombre_categoria = categoria.find('nombre').text
+       for pelicula in categoria.findall(f'peliculas/pelicula'):
+           titulo = pelicula.find('titulo').text
+           director = pelicula.find('director').text
+           anno = pelicula.find('anio').text
+           fecha = pelicula.find('fecha').text
+           hora = pelicula.find('hora').text
+           peli = Pelicula(titulo, director, anno, fecha, hora)
+           cate = Categoria(nombre_categoria, peli)
+           #print(cate.nombre)
+           #print(cate.pelicula.titulo)
+           listadoblecircular.add(cate)
+    return listadoblecircular
+
+def nueva_categoria_xml(nombre):
+    tree = ET.parse('db/peliculas.xml')
+    root = tree.getroot()
+    
+    datos_categoria = f"""
+        <categoria>
+        <nombre>{nombre}</nombre>
+        <peliculas>
+        </peliculas>
+        </categoria>
+        """
+    categoria = ET.fromstring(datos_categoria)
+    root.append(categoria)
+    tree.write('db/peliculas.xml')
+
+def nueva_pelicula_xml(categoria, titulo, director, anno, fecha, hora):
+    tree = ET.parse('db/peliculas.xml')
+    root = tree.getroot()
+
+    datos_pelicula = f"""
+    <pelicula>
+    <titulo>{titulo}</titulo>
+    <director>{director}</director>
+    <anio>{anno}</anio>
+    <fecha>{fecha}</fecha>
+    <hora>{hora}</hora>
+    </pelicula>
+        """
+    
+    for item in root.findall('categoria'):
+        if categoria == item.find('nombre').text:
+            pelicula = item.find('peliculas')
+            nueva_pelicula = ET.fromstring(datos_pelicula)
+            pelicula.append(nueva_pelicula)
+            tree.write('db/peliculas.xml')
+            print(f"Se añadió la pelicula correctamente a la categoria {categoria}")
+            return 1
+    
+def buscar_categoria(categoria):
+    tree = ET.parse('db/peliculas.xml')
+    root = tree.getroot()
+    #categorias = root.find('categoria')
+    index = 1
+    #print(categoria.findall('nombre'))
+
+    for item in root.findall('categoria'):
+        if categoria == item.find('nombre').text:
+            break
+        else:
+            index += 1
+    return index
 
 def cargar_salas_xml():
     tree = ET.parse('db/salas.xml')

@@ -2,6 +2,7 @@ from models.carga_xml import *
 
 lista_enlazada_usuarios = cargar_usuarios_xml()
 lista_doble_enlazada_salas = cargar_salas_xml()
+lista_doble_circular_peliculas = cargar_peliculas_xml()
 
 class Cli:
     global marco
@@ -14,7 +15,7 @@ class Cli:
     def menu_inicio_sesion(self):
         correo = input("Ingrese su correo: ")
         contrasenna = input("Ingrese su contraseña: ")
-        lista_enlazada_usuarios.imprimir_lista()
+        # lista_enlazada_usuarios.imprimir_lista()
         rol = lista_enlazada_usuarios.login(correo, contrasenna)
         if rol == 1:
             self.menu_administrador()
@@ -60,7 +61,7 @@ class Cli:
 
             opcion = input("Ingrese una opción: ")
             if opcion == "1": # Ve listado de peliculas
-                pass
+                self.menu_ver_peliculas()
             elif opcion == "2": # Ve listado de peliculas favoritas
                 pass
             elif opcion == "3": # Compra boletos
@@ -105,7 +106,7 @@ class Cli:
             if opcion == "1": # Gestiona usuarios
                 self.menu_administrador_gestionar_usuarios()
             elif opcion == "2": # Gestiona peliculas
-                pass
+                self.menu_administrador_gestionar_peliculas()
             elif opcion == "3": # Gestiona salas
                 self.menu_administrador_gestionar_salas()
             elif opcion == "4": # Gestiona boletos comprados
@@ -115,6 +116,106 @@ class Cli:
                 break
             else:
                 print("Ingrese una opción válida.")
+
+    def menu_administrador_gestionar_peliculas(self):
+        while True:
+            print(marco)
+            print("1. Nueva categoria/pelicula")
+            print("2. Editar categoria/pelicula")
+            print("3. Eliminar categoria/pelicula")
+            print("4. Ver peliculas disponibles")
+            print("5. Salir del menu gestionar peliculas")
+            print(marco)
+
+            opcion = input("Ingrese una opción: ")
+            if opcion == "1": # Crear peliculas/categoria
+                self.admin_crear_peliculas()
+            elif opcion == "2": # Editar peliculas
+                self.admin_editar_peliculas()
+            elif opcion == "3": # Eliminar peliculas
+                self.admin_eliminar_peliculas()
+            elif opcion == "4": # Ver peliculas
+                self.menu_ver_peliculas()
+            elif opcion == "5":
+                print("Se ha regresado al menu principal de administrador")
+                break
+            else:
+                print("Ingrese una opción válida.")
+
+    def admin_editar_peliculas(self):
+        try:
+            titulo = input("Ingrese el titulo de la pelicula que desea editar: ")
+            cate, index = lista_doble_circular_peliculas.editar_peliculas(titulo)
+            modificar_pelicula_xml(cate, index)
+        except:
+            print("Ocurrio un error.")
+    
+    def admin_eliminar_peliculas(self):
+        titulo = input("Ingrese el titulo de la pelicula que desea eliminar: ")
+        pelicula_eliminada = lista_doble_circular_peliculas.delete(titulo)
+        if pelicula_eliminada == 1:
+            eliminar_pelicula_xml(titulo)
+            print("Se eliminó la pelicula.")
+
+    def menu_ver_peliculas(self):
+        while True:
+            print(marco)
+            print("1. Ver por categoria")
+            print("2. Ver listado general")
+            print("3. Salir del menu ver peliculas")
+            print(marco)
+            opcion = input("Ingrese una opción: ")
+            if opcion == "1":
+                categoria = input("Ingrese la categoria: ")
+                print(marco)
+                print(f"+++Peliculas de {categoria}+++")
+                lista_doble_circular_peliculas.imprimir_lista(opcion, categoria)
+                print(marco)
+            elif opcion == "2":
+                lista_doble_circular_peliculas.imprimir_lista(opcion, None)
+            elif opcion == "3":
+                break
+            else:
+                print("Ingrese una opción válida.")
+
+    def admin_crear_peliculas(self):
+        while True:
+            print(marco)
+            print("1. Crear categoria")
+            print("2. Añadir pelicula")
+            print("3. Cancelar")
+            print(marco)
+
+            opcion = input("Ingrese una opción: ")
+            if opcion == "1": # Crea una categoria
+                nombre = input("Ingrese el nombre de la categoria nueva: ")
+                while not nombre:
+                    nombre = input("El nombre no puede estar vacio. Ingrese el nombre de la categoria nueva: ")
+                if nombre:
+                    nueva_categoria_xml(nombre)
+                    break
+                else:
+                    print("Ingrese un valor correcto")
+                
+            elif opcion == "2": # Crea una pelicula
+                categoria = input("Ingrese la categoria en la que añadira la pelicula: ")
+                titulo = input("Ingrese el titulo de la pelicula: ")
+                director = input("Ingrese el director de la pelicula: ")
+                anno = input("Ingrese el año de la pelicula: ")
+                fecha = input("Ingrese la fecha de proyección la pelicula: ")
+                hora = input("Ingrese la hora de proyección de la pelicula: ")
+                registro = nueva_pelicula_xml(categoria, titulo, director, anno, fecha, hora)
+                if registro == 1:
+                    pelicula = Pelicula(titulo, director, anno, fecha, hora)
+                    cate = Categoria(categoria, pelicula)
+                    lista_doble_circular_peliculas.add(cate)
+                    break
+                else:
+                    print("Ocurrio un error(No se encontró la categoria).")
+            elif opcion == "3": # Regresa al menu anterior
+                break
+            else:
+                print("Ingrese una opción válida")
 
     def menu_administrador_gestionar_usuarios(self):
         while True:
@@ -186,7 +287,7 @@ class Cli:
             print("2. Editar salas existentes")
             print("3. Deshabilitar salas")
             print("4. Ver salas disponibles")
-            print("5. Salir del menu")
+            print("5. Salir del menu gestionar salas")
             print(marco)
             opcion = input("Ingrese una opción: ")
             if opcion == "1": # Crea salas
@@ -226,7 +327,7 @@ class Cli:
         try:
             numero_sala = int(input("Ingrese el número de sala que desea elminar: "))
             sala_eliminada = lista_doble_enlazada_salas.delete(numero_sala)
-            lista_doble_enlazada_salas.imprimir_lista()
+            # lista_doble_enlazada_salas.imprimir_lista()
             if sala_eliminada == 1:
                 eliminar_sala_xml(numero_sala)
                 print(f"Sala #USACIPC2_201807398_{numero_sala} eliminada.")

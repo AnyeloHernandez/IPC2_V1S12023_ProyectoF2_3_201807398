@@ -6,6 +6,21 @@ class Pelicula:
         self.fecha = fecha
         self.hora = hora
 
-    def imprimir_peliculas(self):
-        print(f"Titulo: {self.titulo}\nDirector(es): {self.director}\nAño: {self.anno}\nFecha y hora: {self.hora} {self.fecha}")
+class Categoria(Pelicula):
+    def __init__(self, nombre, pelicula):
+        self.nombre = nombre
+        self.pelicula = pelicula
+
+    def imprimir_peliculas_general(self):
+        print(f"Categoria: {self.nombre}")
+        print(f"Titulo: {self.pelicula.titulo}\nDirector(es):"+
+              f"{self.pelicula.director}\nAño: {self.pelicula.anno}"+
+              f"\nFecha y hora: {self.pelicula.hora} {self.pelicula.fecha}")
         print("")
+
+    def imprimir_peliculas_categoria(self, categoria):
+        if categoria == self.nombre:
+            print(f"Titulo: {self.pelicula.titulo}\nDirector(es):" +
+                  f"{self.pelicula.director}\nAño: {self.pelicula.anno}" +
+                  f"\nFecha y hora: {self.pelicula.hora} {self.pelicula.fecha}")
+            print("")

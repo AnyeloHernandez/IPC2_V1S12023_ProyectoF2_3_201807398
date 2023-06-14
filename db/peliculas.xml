@@ -1,6 +1,6 @@
 <categorias>
 <categoria>
-<nombre>Acción</nombre>
+<nombre>Acci&#243;n</nombre>
 <peliculas>
 <pelicula>
 <titulo>Avengers: Endgame</titulo>
@@ -17,13 +17,20 @@
 <hora>20:00</hora>
 </pelicula>
 <pelicula>
-<titulo>Misión Imposible: Fallout</titulo>
+<titulo>Misi&#243;n Imposible: Fallout</titulo>
 <director>Christopher McQuarrie</director>
 <anio>2018</anio>
 <fecha>2023-06-07</fecha>
 <hora>19:15</hora>
 </pelicula>
-</peliculas>
+<pelicula>
+    <titulo>a</titulo>
+    <director>a</director>
+    <anio>a</anio>
+    <fecha>a</fecha>
+    <hora>a</hora>
+    </pelicula></peliculas>
+</categoria>
 <categoria>
 <nombre>Comedia</nombre>
 <peliculas>
@@ -48,6 +55,12 @@
 <fecha>2023-06-07</fecha>
 <hora>20:15</hora>
 </pelicula>
-</peliculas>
+<pelicula>
+    <titulo>a</titulo>
+    <director>a</director>
+    <anio>a</anio>
+    <fecha>a</fecha>
+    <hora>a</hora>
+    </pelicula></peliculas>
 </categoria>
 </categorias>

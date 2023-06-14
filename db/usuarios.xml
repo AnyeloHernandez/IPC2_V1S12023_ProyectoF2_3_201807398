@@ -35,6 +35,6 @@
     <nombre>a</nombre>
     <apellido>b</apellido>
     <telefono>213</telefono>
-    <correo>a</correo>
+    <correo>abc</correo>
     <contrasena>e</contrasena>
     </usuario></usuarios>
