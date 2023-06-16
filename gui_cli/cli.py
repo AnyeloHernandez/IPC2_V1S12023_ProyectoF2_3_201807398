@@ -1,4 +1,5 @@
 from models.carga_xml import *
+import time
 
 lista_enlazada_usuarios = cargar_usuarios_xml()
 lista_doble_enlazada_salas = cargar_salas_xml()
@@ -43,17 +44,10 @@ class Cli:
             print("Ingrese una opción válida.")
         
     def menu_cliente(self):
-        '''
-        TODO: 
-        Ver listado de peliculas en general
-        Listado de peliculas favoritas del usuario
-        Comprar boletos para la pelicula
-        Historial de boletos
-        '''
         while True:
             print(marco)
             print("1. Ver listado de peliculas")
-            print("2. Ver listado de peliculas favoritas")
+            print("2. Peliculas favoritas")
             print("3. Comprar boletos")
             print("4. Historial de boletos comprados")
             print("5. Cerrar sesión")
@@ -63,16 +57,102 @@ class Cli:
             if opcion == "1": # Ve listado de peliculas
                 self.menu_ver_peliculas()
             elif opcion == "2": # Ve listado de peliculas favoritas
-                pass
+                self.menu_peliculas_favoritas()
             elif opcion == "3": # Compra boletos
-                pass
+                self.menu_comprar_boletos()
             elif opcion == "4": # Historial de boletos
-                pass
+                lista_enlazada_usuarios.historial_boletos_comprados()
             elif opcion == "5":
                 print("Se ha cerrado sesión...")
                 break
             else:
                 print("Ingrese una opción válida.")
+
+    def menu_peliculas_favoritas(self):
+        while True:
+            print(marco)
+            print("1. Añadir pelicula a favoritos")
+            print("2. Eliminar pelicula de favoritos")
+            print("3. Ver peliculas favoritas")
+            print("4. Regresar al menu anterior")
+            print(marco)
+            opcion = input("Ingrese una opción: ")
+
+            if opcion == "1":
+                titulo = input("Ingrese el titulo de la pelicula: ")
+                try:
+                    buscar, categoria = lista_doble_circular_peliculas.buscar_pelicula(titulo)
+                    if buscar == 1:
+                        lista_enlazada_usuarios.insertar_peliculas_favoritas(categoria)
+                except:
+                    print("No se ha encontrado la pelicula")
+            elif opcion == "2":
+                titulo = input("Ingrese el titulo de la pelicula: ")
+                lista_enlazada_usuarios.eliminar_peliculas_favoritas(titulo)
+            elif opcion == "3":
+                lista_enlazada_usuarios.imprimir_peliculas_favoritas()
+            elif opcion == "4":
+                break
+            else:
+                print("Ingrese una opción válida.")
+
+
+    def menu_comprar_boletos(self):
+        opcion = input("Ingrese el nombre de la pelicula que desea ver: ")
+        try:
+            buscar, categoria = lista_doble_circular_peliculas.buscar_pelicula(opcion)
+            if buscar == 1:
+                print(marco)
+                print(f"Ha selecciónado la pelicula {categoria.pelicula.titulo}")
+                print(f"Fecha de proyección: {categoria.pelicula.fecha} {categoria.pelicula.hora}")
+                cantidad = int(input("Ingrese la cantidad de boletos que desea comprar: "))
+                sala_seleccionada = int(input("Ingrese el número de sala: "))
+                compra = lista_doble_enlazada_salas.buscar_sala(sala_seleccionada, cantidad)
+                if compra:
+                    self.menu_facturacion(cantidad, compra, categoria)
+        except:
+            print("No se ha encontrado la pelicula.")
+
+    def menu_facturacion(self, cantidad, compra, categoria):
+        print(marco)
+        print("Ingrese los datos de facturación: ")
+        nombre = input("Ingrese su nombre [CF]: ") or "CF"
+        if nombre == "CF":
+            self.imprimir_factura(cantidad, compra, categoria)
+        else:
+            nit = int(input("Ingrese su nit: "))
+            direccion = input("Ingrese su dirección: ")
+            self.imprimir_factura(cantidad, compra, categoria, nombre, nit, direccion)
+
+    def imprimir_factura(self, cantidad, compra, categoria, nombre="Consumidor Final", nit="CF", direccion="Ciudad"):
+        fecha = time.asctime()
+        factura = f"""
+            Documento Tributario Electronico
+                      ORIGINAL
+            --------------------------------
+                    USAC Cinema
+Universidad de San Carlos de Guatemala, zona 12, Facultad de Ingeniería
+            --------------------------------
+                --DATOS DEL COMPRADOR--
+            Fecha de emisión {fecha}
+            Nombre: {nombre}
+            Nit: {nit}
+            Dirección: {direccion}
+            --------------------------------
+             --DESCRIPCION DE LA FACTURA--
+            Cine:
+            Cine ABC
+            Película:
+            {categoria.pelicula.titulo}
+            Sala:
+            #USACIPC2_201807398_{compra.numero}
+            Asientos:
+            {cantidad}
+
+            Total: Q.{cantidad * 32}
+            """
+        print(factura)
+        lista_enlazada_usuarios.insertar_boletos_comprados(cantidad, nombre, nit, direccion, fecha, categoria)
 
     def menu_registrar(self, rol='cliente'):
         try:

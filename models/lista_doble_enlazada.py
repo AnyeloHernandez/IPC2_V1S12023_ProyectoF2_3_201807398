@@ -65,6 +65,21 @@ class ListaDobleEnlazada():
                 return sala, index
             index += 1
             actual = actual.siguiente
+
+    def buscar_sala(self, numero, cantidad):
+        actual = self.head
+        index = 1
+        sala_seleccionada = "#USACIPC2_201807398_" + str(numero)
+        while actual is not None:
+            if sala_seleccionada == actual.dato.numero:
+                print("Se encontro la sala")
+                actual.dato.asientos = int(actual.dato.asientos) - cantidad
+                sala = Sala(numero, actual.dato.asientos)
+                return sala
+            actual = actual.siguiente
+            index += 1
+        else:
+            return sala
             
     def isEmpty(self): # Revisa si la lista esta vacia
         if self.head is None:

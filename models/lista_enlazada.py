@@ -1,9 +1,12 @@
 from models.nodo import Nodo
-from models.usuarios import Usuario
+from models.usuarios import Usuario, Boleto
 
 class ListaEnlazada:
     def __init__(self):
         self.head = None
+        self.boletos_comprados = []
+        self.peliculas_favoritas = []
+        self.usuario_logeado = ""
 
     def add(self, dato):
         nuevo = Nodo(dato)
@@ -36,6 +39,7 @@ class ListaEnlazada:
                     return 1
                 elif actual.dato.rol == "cliente":
                     # Muestra el menu de cliente
+                    self.usuario_logeado = actual.dato.correo
                     print(f"Bienvenido: {actual.dato.nombre} {actual.dato.apellido}")
                     return 2
                 else:
@@ -85,5 +89,50 @@ class ListaEnlazada:
                     return 1
             anterior = actual
             actual = actual.siguiente
-        
-        
+
+    def insertar_boletos_comprados(self, cantidad, nombre, nit, direccion, fecha, categoria):
+        correo = self.usuario_logeado
+        boleto = Boleto(cantidad, nombre, nit, direccion, correo, fecha, categoria)
+        boletos_comprados = self.boletos_comprados
+        boletos_comprados.append(boleto)
+
+    def historial_boletos_comprados(self):
+        boletos_comprados = self.boletos_comprados
+        print(f"Historial de {self.usuario_logeado}: \n")
+        for boleto in boletos_comprados:
+            if boleto.correo == self.usuario_logeado:
+                print(f"Titulo de la pelicula: {boleto.categoria.pelicula.titulo}")
+                print(f"Fecha de compra: {boleto.fecha}")
+                print(f"Asientos comprados: {boleto.cantidad}")
+                print(f"Nombre: {boleto.nombre}")
+                print(f"NIT: {boleto.nit}")
+                print(f"Direccón: {boleto.direccion}")
+                print("")
+
+    def insertar_peliculas_favoritas(self, categoria):
+        peliculas_favoritas = self.peliculas_favoritas
+        favorita = (categoria, self.usuario_logeado)
+        if favorita not in peliculas_favoritas:
+            peliculas_favoritas.append(favorita)
+            print(f"Se ha añadido la pelicula {categoria.pelicula.titulo} a sus favoritos")
+        else:
+            print("La pelicula ya está en sus favoritos.")
+
+    def imprimir_peliculas_favoritas(self):
+        peliculas_favoritas = self.peliculas_favoritas
+        print(f"Peliculas favoritas:\n")
+        for pelicula, usuario in peliculas_favoritas:
+            if usuario == self.usuario_logeado:
+                print(f"Titulo: {pelicula.pelicula.titulo}")
+                print(f"Director(es): {pelicula.pelicula.director}")
+                print(f"Género: {pelicula.nombre}")
+                print(f"Año: {pelicula.pelicula.anno}")
+                print("")
+
+    def eliminar_peliculas_favoritas(self, titulo):
+        peliculas_favoritas = self.peliculas_favoritas
+        print(self.usuario_logeado)
+        for pelicula, usuario in peliculas_favoritas:
+            if usuario == self.usuario_logeado and titulo == pelicula.pelicula.titulo:
+                peliculas_favoritas.remove((pelicula, usuario))
+                print(f"Se ha eliminado la pelicula {pelicula.pelicula.titulo}")
