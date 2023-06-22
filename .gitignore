@@ -1,0 +1,6 @@
+venv/
+models/
+gui_cli/
+main.py
+db/
+.vscode/
