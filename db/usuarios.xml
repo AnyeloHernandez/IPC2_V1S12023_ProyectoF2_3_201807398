@@ -37,4 +37,18 @@
     <telefono>213</telefono>
     <correo>abc</correo>
     <contrasena>e</contrasena>
+    </usuario><usuario>
+    <rol>cliente</rol>
+    <nombre>321</nombre>
+    <apellido>321</apellido>
+    <telefono>321</telefono>
+    <correo>321@321</correo>
+    <contrasena>321</contrasena>
+    </usuario><usuario>
+    <rol>cliente</rol>
+    <nombre>321</nombre>
+    <apellido>321</apellido>
+    <telefono>123</telefono>
+    <correo>321@3211</correo>
+    <contrasena>123</contrasena>
     </usuario></usuarios>
