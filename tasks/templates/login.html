@@ -1,20 +1,29 @@
-<h1>login</h1>
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-<form>
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <title>Login</title>
+        <link rel="stylesheet" href="{% static 'css/divlogin.css' %}" >
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+    <body>
+<div class="tab-pane">
+<form method="POST">
+    {% csrf_token %}
+    <h1>Iniciar Sesión</h1>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">{{error}}</div>
+      <label for="correo" class="form-label">Correo</label>
+      <input type="email" name="correo" class="form-control" id="correo" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text"><p style="color: red;">{{error}}</p></div>
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="password" class="form-label">Contraseña</label>
+      <input type="password" name="password" class="form-control" id="password">
     </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Ingresar</button>
   </form>
+</div>
+</body>
+</html>

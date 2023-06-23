@@ -1,31 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <title>Registrarse</title>
+        <link rel="stylesheet" href="{% static 'css/divlogin.css' %}" >
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+    <body>
 <h1>Registrarse</h1>
-
-
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-
-<!-- <form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    
-    <label for="id_nombre">Nombre: </label>
-    <input type="text" name="nombre" maxlength="150" autocapitalize="none" autocomplete="nombre" autofocus="" required="" id="id_nombre">
-    
-    <label for="id_nombre">Apellido: </label>
-    <input type="text" name="apellido" maxlength="150" autocapitalize="none" autocomplete="apellido" autofocus="" required="" id="id_apellido">
-<br>
-    <label for="id_nombre">Telefono:</label>
-    <input type="text" name="telefono" maxlength="150" autocapitalize="none" autocomplete="telefono" autofocus="" required="" id="id_telefono">
-<br>
-
-    <button>
-        Signup
-    </button>
-</form> -->
-
-    <div class="tab-pane" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+    <div class="tab-pane" id="registrar" role="tabpanel" aria-labelledby="tab-register">
       <form method="POST">  
         {% csrf_token %}
         <!-- Name input -->
@@ -70,3 +55,5 @@
       </form>
     </div>
   </div>
+    </body>
+    </html>
