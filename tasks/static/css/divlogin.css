@@ -1,0 +1,11 @@
+.tab-pane {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

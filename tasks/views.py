@@ -7,7 +7,12 @@ from models.carga_xml import *
 lista_enlazada_usuarios = cargar_usuarios_xml()
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    if lista_enlazada_usuarios.usuario_logeado != '':
+        return render(request, 'home.html', {
+            "usuario": f'Bienvenido {lista_enlazada_usuarios.usuario_logeado}'
+        })
+    else:
+        return render(request, 'home.html')
 
 def signup(request):
     #lista_enlazada_usuarios.imprimir_lista()
@@ -47,4 +52,18 @@ def signup(request):
             })
 
 def login(request):
-    return render(request, 'login.html')
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    else:
+        rol = lista_enlazada_usuarios.login(request.POST['correo'], request.POST['password'])
+        if rol == 1:
+            print("Se inicio sesion como administrador")
+            return HttpResponse('Se ingreso como administrador') # Menu administrador
+        elif rol == 2:
+            print("Se inicio sesion como cliente")
+            # return HttpResponse(f'Se ingreso como cliente {lista_enlazada_usuarios.usuario_logeado}') # Menu cliente
+            return redirect('home')
+        else:
+            return render(request, 'login.html', {
+                "error": 'Usuario y contraseña no encontrados'
+            })
