@@ -4,15 +4,24 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from models.carga_xml import *
 
+global lista_doble_ciruclar, lista_enlazada_usuarios
+
 lista_enlazada_usuarios = cargar_usuarios_xml()
+lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
+
 # Create your views here.
 def home(request):
+    lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
+    lista_doble_ciruclar_peliculas.imprimir_lista("2", None)
     if lista_enlazada_usuarios.usuario_logeado != '':
         return render(request, 'home.html', {
             "usuario": f'Bienvenido {lista_enlazada_usuarios.usuario_logeado}'
         })
     else:
-        return render(request, 'home.html')
+        print(type(lista_doble_ciruclar_peliculas))
+        return render(request, 'home.html', {
+            "peliculas": lista_doble_ciruclar_peliculas
+        })
 
 def signup(request):
     #lista_enlazada_usuarios.imprimir_lista()

@@ -139,7 +139,8 @@ def cargar_peliculas_xml():
            anno = pelicula.find('anio').text
            fecha = pelicula.find('fecha').text
            hora = pelicula.find('hora').text
-           peli = Pelicula(titulo, director, anno, fecha, hora)
+           imagen = pelicula.find('imagen').text
+           peli = Pelicula(titulo, director, anno, fecha, hora, imagen)
            cate = Categoria(nombre_categoria, peli)
            #print(cate.nombre)
            #print(cate.pelicula.titulo)

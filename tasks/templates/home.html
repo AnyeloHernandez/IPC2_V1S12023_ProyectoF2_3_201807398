@@ -1,6 +1,6 @@
 {% extends 'carousel.html' %}
 {% block content %}
-<div class="slider">
+<!-- <div class="slider">
     <input type="radio" name="toggle" id="btn-1" checked>
     <input type="radio" name="toggle" id="btn-2">
     <input type="radio" name="toggle" id="btn-3">
@@ -19,7 +19,7 @@
           <a href="#" class="slide-link">Learn more</a>
         </div>
         <p class="slide-image">
-          <img src="https://placeimg.com/320/240/tech" alt="stuff" width="320" height="240">
+          <img src="https://wallpapers.moviemania.io/phone/movie/293660/88d5cc/deadpool-phone-wallpaper.jpg?w=1536&h=2732" alt="stuff" width="320" height="240">
         </p>
       </li>
       <li class="slide">
@@ -43,5 +43,36 @@
         </p>
       </li>
     </ul>
+  </div> -->
+  
+  <div class="slider">
+    {% for pelicula in peliculas %}
+    <input type="radio" name="toggle" id="btn-{{ forloop.counter }}">
+    {% endfor %}
+
+    <div class="slider-controls">
+      {% for pelicula in peliculas %}
+      <label for="btn-{{ forloop.counter }}"></label>
+      {% endfor %}
+    </div>
+
+    <ul class="slides">
+    {% for pelicula in peliculas %}
+    <li class="slide">
+      <div class="slide-content">
+        <h2 class="slide-title">{{ pelicula.pelicula.titulo }}</h2>
+        <p class="slide-text">{{ pelicula.nombre }}</p>
+        <p class="slide-text">{{ pelicula.pelicula.director }}</p>
+        <p class="slide-text">{{ pelicula.pelicula.fecha }} {{ pelicula.pelicula.hora }}</p>
+        <a href="#" class="slide-link">Comprar Boletos</a>
+      </div>
+      <p class="slide-image">
+        <img src="{{ pelicula.pelicula.imagen }}" alt="stuff" width="320" height="240">
+      </p>
+    </li>
+    {% endfor %}
+  </ul>
   </div>
+
+  
 {% endblock %}

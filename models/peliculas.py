@@ -1,10 +1,11 @@
 class Pelicula:
-    def __init__(self, titulo, director, anno, fecha, hora):
+    def __init__(self, titulo, director, anno, fecha, hora, imagen):
         self.titulo = titulo
         self.director = director
         self.anno = anno
         self.fecha = fecha
         self.hora = hora
+        self.imagen = imagen
 
 class Categoria(Pelicula):
     def __init__(self, nombre, pelicula):
