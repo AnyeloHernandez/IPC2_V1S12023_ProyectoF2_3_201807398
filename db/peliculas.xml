@@ -5,6 +5,7 @@
 <pelicula>
 <titulo>Avengers: Endgame</titulo>
 <director>Joe Russo, Anthony Russo</director>
+<imagen>https://image.tmdb.org/t/p/original/yaRps1bMQLyz54M8ib5YdA2a2RZ.jpg</imagen>
 <anio>2019</anio>
 <fecha>2023-06-05</fecha>
 <hora>18:30</hora>
@@ -12,6 +13,7 @@
 <pelicula>
 <titulo>John Wick</titulo>
 <director>Chad Stahelski</director>
+<imagen>https://theflame.unishanoi.org/wp-content/uploads/2018/06/john-wick-900x500.jpg</imagen>
 <anio>2014</anio>
 <fecha>2023-06-06</fecha>
 <hora>20:00</hora>
@@ -19,17 +21,12 @@
 <pelicula>
 <titulo>Misi&#243;n Imposible: Fallout</titulo>
 <director>Christopher McQuarrie</director>
+<imagen>https://www.themoviedb.org/t/p/original/3le8cFUZ760OZNv8sE9qnVNizU7.jpg</imagen>
 <anio>2018</anio>
 <fecha>2023-06-07</fecha>
 <hora>19:15</hora>
 </pelicula>
-<pelicula>
-    <titulo>a</titulo>
-    <director>a</director>
-    <anio>a</anio>
-    <fecha>a</fecha>
-    <hora>a</hora>
-    </pelicula></peliculas>
+</peliculas>
 </categoria>
 <categoria>
 <nombre>Comedia</nombre>
@@ -37,6 +34,7 @@
 <pelicula>
 <titulo>Deadpool</titulo>
 <director>Tim Miller</director>
+<imagen>https://venkatarangan.com/blog/wp-content/uploads/2016/11/deadpool-featured.jpg</imagen>
 <anio>2016</anio>
 <fecha>2023-06-05</fecha>
 <hora>20:30</hora>
@@ -44,6 +42,7 @@
 <pelicula>
 <titulo>Superbad</titulo>
 <director>Greg Mottola</director>
+<imagen>https://www.themoviethemesong.com/wp-content/uploads/2015/02/Superbad-4.jpg</imagen>
 <anio>2007</anio>
 <fecha>2023-06-06</fecha>
 <hora>21:00</hora>
@@ -51,16 +50,11 @@
 <pelicula>
 <titulo>Bridesmaids</titulo>
 <director>Paul Feig</director>
+<imagen>https://image.tmdb.org/t/p/original/yGcJTVnF9I41beyI9DEVISX2zrx.jpg</imagen>
 <anio>2011</anio>
 <fecha>2023-06-07</fecha>
 <hora>20:15</hora>
 </pelicula>
-<pelicula>
-    <titulo>a</titulo>
-    <director>a</director>
-    <anio>a</anio>
-    <fecha>a</fecha>
-    <hora>a</hora>
-    </pelicula></peliculas>
+</peliculas>
 </categoria>
 </categorias>

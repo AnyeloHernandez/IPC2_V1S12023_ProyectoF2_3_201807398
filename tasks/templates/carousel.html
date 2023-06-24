@@ -9,6 +9,7 @@
         {% bootstrap_javascript %}
     </head>
     <body>
+        {% csrf_token %}
         <h1>{{usuario}}</h1>
         {% block content %}
         {% endblock %}

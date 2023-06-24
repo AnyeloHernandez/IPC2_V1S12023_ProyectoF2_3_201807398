@@ -5,6 +5,19 @@ class ListaDobleCircular:
     def __init__(self):
         self.head = None
 
+    def __iter__(self):
+        self.actual = self.head
+        return self
+    
+    def __next__(self):
+        if self.actual is None:
+            raise StopIteration  
+        data = self.actual.dato  
+        self.actual = self.actual.siguiente
+        if self.actual == self.head:
+            self.actual = None 
+        return data
+
     def add(self, dato):
         nodo = Nodo(dato)
 

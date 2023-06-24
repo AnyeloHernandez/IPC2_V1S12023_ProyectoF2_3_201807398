@@ -70,6 +70,18 @@ html {
   #btn-3:checked ~ .slider-controls label[for="btn-3"] {
     background-color: #ff4081;
   }
+
+  #btn-4:checked ~ .slider-controls label[for="btn-4"] {
+    background-color: #ff4081;
+  }
+  
+  #btn-5:checked ~ .slider-controls label[for="btn-5"] {
+    background-color: #ff4081;
+  }
+  
+  #btn-6:checked ~ .slider-controls label[for="btn-6"] {
+    background-color: #ff4081;
+  }
   
   /* SLIDES */
   
@@ -137,6 +149,38 @@ html {
     transform: translatex(0);
     opacity: 1;
   }
+
+  #btn-4:checked ~ .slides .slide:nth-child(4) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+  
+  #btn-5:checked ~ .slides .slide:nth-child(5) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+  
+  #btn-6:checked ~ .slides .slide:nth-child(6) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+  #btn-6:checked ~ .slides .slide:nth-child(7) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+  #btn-6:checked ~ .slides .slide:nth-child(8) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+  #btn-6:checked ~ .slides .slide:nth-child(9) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+  #btn-6:checked ~ .slides .slide:nth-child(10) {
+    transform: translatex(0);
+    opacity: 1;
+  }
+
   
   #btn-1:not(:checked) ~ .slides .slide:nth-child(1) {
     animation-name: swap-out;
@@ -151,6 +195,44 @@ html {
   }
   
   #btn-3:not(:checked) ~ .slides .slide:nth-child(3) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+  #btn-4:not(:checked) ~ .slides .slide:nth-child(4) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+  
+  #btn-5:not(:checked) ~ .slides .slide:nth-child(5) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+  
+  #btn-6:not(:checked) ~ .slides .slide:nth-child(6) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+
+  #btn-7:not(:checked) ~ .slides .slide:nth-child(7) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+  #btn-8:not(:checked) ~ .slides .slide:nth-child(8) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+  #btn-9:not(:checked) ~ .slides .slide:nth-child(9) {
+    animation-name: swap-out;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+  }
+  #btn-10:not(:checked) ~ .slides .slide:nth-child(10) {
     animation-name: swap-out;
     animation-duration: 300ms;
     animation-timing-function: linear;
