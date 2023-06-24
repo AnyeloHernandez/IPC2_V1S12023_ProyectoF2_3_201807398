@@ -1,5 +1,5 @@
-models/
 gui_cli/
 main.py
-db/
 .vscode/
+models/__pycache__/
+tasks/__pycache__/

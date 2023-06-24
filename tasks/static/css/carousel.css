@@ -82,6 +82,29 @@ html {
   #btn-6:checked ~ .slider-controls label[for="btn-6"] {
     background-color: #ff4081;
   }
+  #btn-4:checked ~ .slider-controls label[for="btn-4"] {
+    background-color: #ff4081;
+  }
+  
+  #btn-5:checked ~ .slider-controls label[for="btn-5"] {
+    background-color: #ff4081;
+  }
+  
+  #btn-6:checked ~ .slider-controls label[for="btn-6"] {
+    background-color: #ff4081;
+  }
+  #btn-7:checked ~ .slider-controls label[for="btn-7"] {
+    background-color: #ff4081;
+  }
+  #btn-8:checked ~ .slider-controls label[for="btn-8"] {
+    background-color: #ff4081;
+  }
+  #btn-9:checked ~ .slider-controls label[for="btn-9"] {
+    background-color: #ff4081;
+  }
+  #btn-10:checked ~ .slider-controls label[for="btn-10"] {
+    background-color: #ff4081;
+  }
   
   /* SLIDES */
   
@@ -164,19 +187,19 @@ html {
     transform: translatex(0);
     opacity: 1;
   }
-  #btn-6:checked ~ .slides .slide:nth-child(7) {
+  #btn-7:checked ~ .slides .slide:nth-child(7) {
     transform: translatex(0);
     opacity: 1;
   }
-  #btn-6:checked ~ .slides .slide:nth-child(8) {
+  #btn-8:checked ~ .slides .slide:nth-child(8) {
     transform: translatex(0);
     opacity: 1;
   }
-  #btn-6:checked ~ .slides .slide:nth-child(9) {
+  #btn-9:checked ~ .slides .slide:nth-child(9) {
     transform: translatex(0);
     opacity: 1;
   }
-  #btn-6:checked ~ .slides .slide:nth-child(10) {
+  #btn-10:checked ~ .slides .slide:nth-child(10) {
     transform: translatex(0);
     opacity: 1;
   }
