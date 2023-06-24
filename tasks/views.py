@@ -15,14 +15,19 @@ def home(request):
     # lista_doble_ciruclar_peliculas.imprimir_lista("2", None)
     if lista_enlazada_usuarios.usuario_logeado != '':
         return render(request, 'home.html', {
-            "usuario": f'Bienvenido {lista_enlazada_usuarios.usuario_logeado}',
+            "usuario": lista_enlazada_usuarios.usuario_logeado,
             "peliculas": lista_doble_ciruclar_peliculas
         })
     else:
         print(type(lista_doble_ciruclar_peliculas))
         return render(request, 'home.html', {
+            "usuario": 'Iniciar Sesión',
             "peliculas": lista_doble_ciruclar_peliculas
         })
+    
+def logout(request):
+    lista_enlazada_usuarios.usuario_logeado = ''
+    return redirect('home')
 
 def signup(request):
     #lista_enlazada_usuarios.imprimir_lista()
