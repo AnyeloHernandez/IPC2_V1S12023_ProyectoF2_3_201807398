@@ -12,7 +12,7 @@ lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
 # Create your views here.
 def home(request):
     lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
-    lista_doble_ciruclar_peliculas.imprimir_lista("2", None)
+    # lista_doble_ciruclar_peliculas.imprimir_lista("2", None)
     if lista_enlazada_usuarios.usuario_logeado != '':
         return render(request, 'home.html', {
             "usuario": f'Bienvenido {lista_enlazada_usuarios.usuario_logeado}',
