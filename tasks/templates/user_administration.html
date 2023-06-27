@@ -1,0 +1,45 @@
+{% extends 'admin.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-sm border">
+        Rol
+      </div>
+      <div class="col-sm border">
+        Nombre y Apellido
+      </div>
+      <div class="col-sm border">
+        Telefono
+      </div>
+      <div class="col-sm border">
+        Correo
+      </div>
+      <div class="col-sm border">
+        Acciones
+      </div>
+    </div>
+      {% for usuario in usuarios %}
+    <div class="row">
+        <div class="col-sm border">
+        {{usuario.rol}}
+        </div>
+        <div class="col-sm border">
+            {{usuario.nombre}} {{usuario.apellido}}
+        </div>
+        <div class="col-sm border">
+            {{usuario.telefono}}
+        </div>
+        <div class="col-sm border">
+            {{usuario.correo}}
+        </div>
+        <div class="col-sm border">
+          <a href="{% url 'editar_usuario' usuario.correo %}"><button type="button" class="btn btn-warning"><i class="bi bi-person-fill-gear"></i>Editar</button></a>
+          <a href="{% url 'eliminar_usuario' usuario.correo %}"><button type="button" class="btn btn-danger"><i class="bi bi-person-fill-dash"></i>Eliminar</button></a>
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    <p style="color: cyan;">{{mensaje}}</p>
+    <a href="{% url 'crear_usuario' %}"><button type="button" class="align-right btn btn-primary"><i class="bi bi-person-fill-add"></i>Crear Usuario</button></a>
+  </div>
+{% endblock %}

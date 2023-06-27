@@ -1,0 +1,58 @@
+{% extends 'admin.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-sm border">
+        Categoria
+      </div>
+      <div class="col-sm border">
+        Titulo
+      </div>
+      <div class="col-sm border">
+        Director(es)
+      </div>
+      <div class="col-sm border">
+        Imagen
+      </div>
+      <div class="col-sm border">
+        Año
+      </div>
+      <div class="col-sm border">
+        Fecha y Hora
+      </div>
+      <div class="col-sm border">
+        Acciones
+      </div>
+    </div>
+      {% for pelicula in peliculas %}
+    <div class="row">
+        <div class="col-sm border">
+        {{pelicula.nombre}}
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.titulo}}
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.director}}
+        </div>
+        <div class="col-sm border">
+            <img src="{{pelicula.pelicula.imagen}}" alt="" width="160" height="115">
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.anno}}
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.fecha}} {{pelicula.pelicula.hora}}
+        </div>
+        <div class="col-sm border">
+            <a href="{% url 'editar_pelicula' pelicula.pelicula.titulo %}"><button type="button" class="btn btn-warning"><i class="bi bi-gear-wide"></i>Editar</button></a>
+            <a href="{% url 'eliminar_pelicula' pelicula.pelicula.titulo %}"><button type="button" class="btn btn-danger"><i class="bi bi-x-circle"></i>Eliminar</button></a>
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    <div class="align-right">
+        <a href="{% url 'crear_pelicula' %}"><button type="button" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i>Crear Pelicula</button></a>
+    </div>
+  </div>
+{% endblock %}

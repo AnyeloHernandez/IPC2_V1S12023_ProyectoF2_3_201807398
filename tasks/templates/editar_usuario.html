@@ -1,0 +1,48 @@
+{% extends 'admin.html' %}
+{% block content %}
+<div class="tab-pane w-100 m-auto">
+<h1>Editando usuario...</h1>
+    <div class="tab-pane" id="crear" role="tabpanel" aria-labelledby="tab-crear">
+      <form method="POST">  
+        {% csrf_token %}
+        <div class="form-outline mb-4">
+            <input type="text" name="rol" id="rol" class="form-control" value="{{usuario.rol}}"/>
+            <label class="form-label" for="rol">Rol</label>
+          </div>
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input type="text" name="nombre" id="nombre" class="form-control" value="{{usuario.nombre}}"/>
+          <label class="form-label" for="nombre">Nombre</label>
+        </div>
+  
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+          <input type="text" name="apellido" id="apellido" class="form-control" value="{{usuario.apellido}}"/>
+          <label class="form-label" for="apellido">Apellido</label>
+        </div>
+  
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" name="correo" id="correo" class="form-control" value="{{usuario.correo}}"/>
+          <label class="form-label" for="correo">Email</label>
+        </div>
+
+        <!-- Telefono input -->
+        <div class="form-outline mb-4">
+            <input type="text" name="telefono" id="telefono" class="form-control" value="{{usuario.telefono}}"/>
+            <label class="form-label" for="telefono">Telefono</label>
+        </div>
+  
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input type="password" name="password1" id="password1" class="form-control" value="{{usuario.contrasenna}}"/>
+          <label class="form-label" for="password1">Contraseña</label>
+        </div>
+        <!-- Submit button -->
+        <p style="color: red;">{{error}}</p>
+        <button type="primary" class="btn btn-warning mb-3">Editar Usuario</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

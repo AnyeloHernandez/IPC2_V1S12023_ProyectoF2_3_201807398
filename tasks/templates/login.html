@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
     <head>
         {% load static %}
         <title>Login</title>
@@ -8,8 +8,8 @@
         {% bootstrap_css %}
         {% bootstrap_javascript %}
     </head>
-    <body>
-<div class="tab-pane">
+    <body class="d-flex align-items-center py-4 bg-body-tertiary">
+<div class="tab-pane w-100 m-auto">
 <form method="POST">
     {% csrf_token %}
     <h1>Iniciar Sesión</h1>

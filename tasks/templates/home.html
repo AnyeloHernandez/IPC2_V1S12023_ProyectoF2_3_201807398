@@ -3,7 +3,7 @@
   <div class="slider">
     {% for pelicula in peliculas %}
     {% if forloop.counter <= 8 %}
-    <input type="radio" name="toggle" id="btn-{{ forloop.counter }}">
+    <input type="radio" name="toggle" id="btn-{{ forloop.counter }}" {% if forloop.counter == 1 %} checked {% endif%}>
     {% endif %}
     {% endfor %}
 
@@ -27,7 +27,7 @@
     {% else %}
     <li class="slide">
       <div class="slide-content">
-        <h2 class="slide-title">{{ pelicula.pelicula.titulo }}</h2>
+        <h4 class="slide-title">{{ pelicula.pelicula.titulo }}</h4>
         <p class="slide-text">{{ pelicula.nombre }}</p>
         <p class="slide-text">{{ pelicula.pelicula.director }}</p>
         <p class="slide-text">{{ pelicula.pelicula.fecha }} {{ pelicula.pelicula.hora }}</p>

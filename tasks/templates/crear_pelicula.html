@@ -1,0 +1,52 @@
+{% extends 'admin.html' %}
+{% block content %}
+<div class="tab-pane w-100 m-auto">
+<h1>Creando pelicula...</h1>
+    <div class="tab-pane" id="crear" role="tabpanel" aria-labelledby="tab-crear">
+      <form method="POST">  
+        {% csrf_token %}
+        <div class="form-outline mb-4">
+            <input type="text" name="categoria" id="categoria" class="form-control" />
+            <label class="form-label" for="categoria">Categoria</label>
+          </div>
+          
+        <div class="form-outline mb-4">
+            <input type="text" name="titulo" id="titulo" class="form-control" />
+            <label class="form-label" for="titulo">Titulo</label>
+          </div>
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input type="text" name="director" id="director" class="form-control" />
+          <label class="form-label" for="direcotr">Director</label>
+        </div>
+  
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+          <input type="text" name="imagen" id="imagen" class="form-control" />
+          <label class="form-label" for="imagen">Imágen</label>
+        </div>
+  
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="text" name="anno" id="anno" class="form-control" />
+          <label class="form-label" for="anno">Año</label>
+        </div>
+
+        <!-- Telefono input -->
+        <div class="form-outline mb-4">
+            <input type="date" name="fecha" id="fecha" class="form-control" />
+            <label class="form-label" for="fecha">Fecha</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="time" name="hora" id="hora" class="form-control" />
+            <label class="form-label" for="hora">Hora</label>
+        </div>
+  
+        <!-- Submit button -->
+        <p style="color: red;">{{error}}</p>
+        <button type="primary" class="btn btn-primary btn-block mb-3">Crear pelicula</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
