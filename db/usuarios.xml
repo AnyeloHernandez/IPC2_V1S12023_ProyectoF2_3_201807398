@@ -27,7 +27,7 @@
 <nombre>admin</nombre>
 <apellido>si</apellido>
 <telefono>987654321</telefono>
-<correo>123</correo>
+<correo>123@123</correo>
 <contrasena>123</contrasena>
 </usuario>
 <usuario>
@@ -41,14 +41,21 @@
     <rol>cliente</rol>
     <nombre>321</nombre>
     <apellido>321</apellido>
-    <telefono>321</telefono>
-    <correo>321@321</correo>
+    <telefono>123</telefono>
+    <correo>321@3211</correo>
+    <contrasena>123</contrasena>
+    </usuario><usuario>
+    <rol>cliente</rol>
+    <nombre>321</nombre>
+    <apellido>321</apellido>
+    <telefono>32</telefono>
+    <correo>32@3231321</correo>
     <contrasena>321</contrasena>
     </usuario><usuario>
     <rol>cliente</rol>
     <nombre>321</nombre>
     <apellido>321</apellido>
-    <telefono>123</telefono>
-    <correo>321@3211</correo>
-    <contrasena>123</contrasena>
+    <telefono>321</telefono>
+    <correo>321@321</correo>
+    <contrasena>321</contrasena>
     </usuario></usuarios>

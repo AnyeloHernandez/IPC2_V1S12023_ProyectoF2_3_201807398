@@ -7,6 +7,20 @@ class ListaEnlazada:
         self.boletos_comprados = []
         self.peliculas_favoritas = []
         self.usuario_logeado = ""
+        self.rol_logeado = ""
+
+    def __iter__(self):
+        self.actual = self.head
+        return self
+    
+    
+    def __next__(self):
+        if self.actual is None:
+            raise StopIteration
+        else:
+            data = self.actual.dato
+            self.actual = self.actual.siguiente
+            return data
 
     def add(self, dato):
         nuevo = Nodo(dato)
@@ -34,6 +48,8 @@ class ListaEnlazada:
         while actual is not None: # Si el nodo actual no es None ejecuta
             if actual.dato.correo == correo and actual.dato.contrasenna == contrasenna:
                 if actual.dato.rol == "administrador":
+                    self.rol_logeado = "administrador"
+                    self.usuario_logeado = actual.dato.correo
                     # Muestra el menu de administrador
                     # print("Se ingreso como administrador")
                     return 1
@@ -47,29 +63,22 @@ class ListaEnlazada:
                     return False
             actual = actual.siguiente # Avanza el nodo y repite
 
-    def editar_usuario(self, correo):
+    def editar_usuario(self, correo, correo_editado, rol, nombre, apellido, telefono, contrasenna):
         actual = self.head
         index = 1
         while actual is not None:
             if actual.dato.correo == correo:
-                # Pide los nuevos datos
-                rol = input(f"Ingrese el rol [{actual.dato.rol}]: ") or actual.dato.rol
-                nombre = input(f"Ingrese el nombre [{actual.dato.nombre}]: ") or actual.dato.nombre
-                apellido = input(f"Ingrese el apellido [{actual.dato.apellido}]: ") or actual.dato.apellido
-                telefono = input(f"Ingrese el telefono [{actual.dato.telefono}]: ") or actual.dato.telefono
-                correo = input(f"Ingrese el correo [{actual.dato.correo}]: ") or actual.dato.correo
-                contrasenna = input(f"Ingrese el contraseña [{actual.dato.contrasenna}]: ") or actual.dato.contrasenna
 
                 # Los asigna de una vez al nodo
                 actual.dato.rol = rol
                 actual.dato.nombre = nombre
                 actual.dato.apellido = apellido
                 actual.dato.telefono = telefono
-                actual.dato.correo = correo
+                actual.dato.correo = correo_editado
                 actual.dato.contrasenna = contrasenna
 
                 # Mandamos un objeto a modificar xml, junto a su index
-                usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasenna)
+                usuario = Usuario(rol, nombre, apellido, telefono, correo_editado, contrasenna)
                 return usuario, index
             index += 1
             

@@ -19,9 +19,18 @@ from django.urls import path
 from tasks import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', views.menu_administrador, name='menu_administrador'),
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.login, name='login'),
-    path('logout/', views.logout, name='logout')
+    path('logout/', views.logout, name='logout'),
+    path('usuarios/', views.administrar_usuarios, name='administrar_usuarios'),
+    path('peliculas/', views.administrar_peliculas, name='administrar_peliculas'),
+    path('peliculas/eliminar/<str:titulo>', views.eliminar_peliculas, name='eliminar_pelicula'),
+    path('peliculas/crear/', views.crear_peliculas, name='crear_pelicula'),
+    path('peliculas/editar/<str:titulo>', views.editar_peliculas, name='editar_pelicula'),
+    path('usuarios/eliminar/<str:correo>', views.eliminar_usuarios, name='eliminar_usuario'),
+    path('usuarios/crear/', views.crear_usuarios, name='crear_usuario'),
+    path('usuarios/editar/<str:correo>', views.editar_usuarios, name='editar_usuario'),
+    path('cartelera/', views.ver_cartelera, name='cartelera')
 ]

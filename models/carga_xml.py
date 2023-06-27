@@ -107,6 +107,7 @@ def modificar_pelicula_xml(cate, index):
 
             titulo = peliculas.find(f'pelicula[{index}]/titulo')
             director = peliculas.find(f'pelicula[{index}]/director')
+            imagen = peliculas.find(f'pelicula[{index}]/imagen')
             anno = peliculas.find(f'pelicula[{index}]/anio')
             fecha = peliculas.find(f'pelicula[{index}]/fecha')
             hora = peliculas.find(f'pelicula[{index}]/hora')
@@ -114,6 +115,7 @@ def modificar_pelicula_xml(cate, index):
             # Editamos el XML
             titulo.text = cate.pelicula.titulo
             director.text = cate.pelicula.director
+            imagen.text = cate.pelicula.imagen
             anno.text = cate.pelicula.anno
             fecha.text = cate.pelicula.fecha
             hora.text = cate.pelicula.hora
@@ -140,7 +142,7 @@ def cargar_peliculas_xml():
            fecha = pelicula.find('fecha').text
            hora = pelicula.find('hora').text
            imagen = pelicula.find('imagen').text
-           peli = Pelicula(titulo, director, anno, fecha, hora, imagen)
+           peli = Pelicula(titulo, director, imagen, anno, fecha, hora)
            cate = Categoria(nombre_categoria, peli)
            #print(cate.nombre)
            #print(cate.pelicula.titulo)
@@ -162,7 +164,7 @@ def nueva_categoria_xml(nombre):
     root.append(categoria)
     tree.write('db/peliculas.xml')
 
-def nueva_pelicula_xml(categoria, titulo, director, anno, fecha, hora):
+def nueva_pelicula_xml(categoria, titulo, director, imagen, anno, fecha, hora):
     tree = ET.parse('db/peliculas.xml')
     root = tree.getroot()
 
@@ -170,6 +172,7 @@ def nueva_pelicula_xml(categoria, titulo, director, anno, fecha, hora):
     <pelicula>
     <titulo>{titulo}</titulo>
     <director>{director}</director>
+    <imagen>{imagen}</imagen>
     <anio>{anno}</anio>
     <fecha>{fecha}</fecha>
     <hora>{hora}</hora>
