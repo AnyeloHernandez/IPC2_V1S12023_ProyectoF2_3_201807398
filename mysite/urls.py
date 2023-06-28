@@ -32,5 +32,9 @@ urlpatterns = [
     path('usuarios/eliminar/<str:correo>', views.eliminar_usuarios, name='eliminar_usuario'),
     path('usuarios/crear/', views.crear_usuarios, name='crear_usuario'),
     path('usuarios/editar/<str:correo>', views.editar_usuarios, name='editar_usuario'),
-    path('cartelera/', views.ver_cartelera, name='cartelera')
+    path('cartelera/', views.ver_cartelera, name='cartelera'),
+    path('salas/', views.administrar_salas, name='administrar_salas'),
+    path('salas/crear/', views.crear_sala, name='crear_sala'),
+    path('salas/eliminar/<sala>', views.eliminar_sala, name='eliminar_sala'),
+    path('salas/editar/<sala>', views.modificar_sala, name='modificar_sala')
 ]

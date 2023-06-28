@@ -236,7 +236,6 @@ def nueva_sala_xml(sala):
     print("Se ha habilitado la sala correctamente.")
 
 def eliminar_sala_xml(numero_sala):
-    sala_eliminada = "#USACIPC2_201807398_" + str(numero_sala)
     tree = ET.parse('db/salas.xml')
     root = tree.getroot()
 
@@ -245,7 +244,7 @@ def eliminar_sala_xml(numero_sala):
 
     # Busca la sala y si la encuentra la elimina
     for sala in salas.findall('sala'):
-        if sala.find('numero').text == sala_eliminada:
+        if sala.find('numero').text == numero_sala:
             salas.remove(sala)
             tree.write('db/salas.xml')
             break

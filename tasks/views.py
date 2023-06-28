@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from models.carga_xml import *
 from django.views.defaults import permission_denied
 
-global lista_doble_ciruclar, lista_enlazada_usuarios
+global lista_doble_ciruclar, lista_enlazada_usuarios, lista_doble_enlazada_salas
 
+lista_doble_enlazada_salas = cargar_salas_xml()
 lista_enlazada_usuarios = cargar_usuarios_xml()
 lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
 
@@ -109,8 +110,6 @@ def ver_cartelera(request):
         })
     
 def administrar_peliculas(request):
-    print(lista_enlazada_usuarios.usuario_logeado)
-    print(lista_enlazada_usuarios.rol_logeado)
     lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
     if request.method == 'GET':
         return render(request, 'movies_administration.html', {
@@ -141,33 +140,27 @@ def editar_peliculas(request, titulo):
                 "peliculas": lista_doble_ciruclar_peliculas
             })
     else:
-        #try:
-        categoria = request.POST['categoria']
-        titulo_editado = request.POST['titulo']
-        director = request.POST['director']
-        imagen = request.POST['imagen']
-        anno = request.POST['anno']
-        fecha = request.POST['fecha']
-        hora = request.POST['hora']
-        print(categoria)
-        print(titulo)
-        print(director)
-        print(imagen)
-        print(anno)
-        print(fecha)
-        print(hora)
-        cate, index = lista_doble_ciruclar_peliculas.editar_peliculas(
-            categoria, titulo, titulo_editado, director, imagen, anno, fecha, hora)
-        lista_doble_ciruclar_peliculas.imprimir_lista(2, None)
-        modificar_pelicula_xml(cate, index)
+        try:
+            categoria = request.POST['categoria']
+            titulo_editado = request.POST['titulo']
+            director = request.POST['director']
+            imagen = request.POST['imagen']
+            anno = request.POST['anno']
+            fecha = request.POST['fecha']
+            hora = request.POST['hora']
 
-        return redirect('administrar_peliculas')
-        # except:
-        #     return render(request, 'crear_pelicula.html', {
-        #         "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
-        #         "peliculas": lista_doble_ciruclar_peliculas,
-        #         "error": 'Ocurrio un error'
-        #     })
+            cate, index = lista_doble_ciruclar_peliculas.editar_peliculas(
+                categoria, titulo, titulo_editado, director, imagen, anno, fecha, hora)
+            lista_doble_ciruclar_peliculas.imprimir_lista(2, None)
+            modificar_pelicula_xml(cate, index)
+
+            return redirect('administrar_peliculas')
+        except:
+            return render(request, 'crear_pelicula.html', {
+                "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+                "peliculas": lista_doble_ciruclar_peliculas,
+                "error": 'Ocurrio un error'
+            })
 
 def eliminar_usuarios(request, correo):
     print(correo)
@@ -259,9 +252,7 @@ def crear_peliculas(request):
                     anno = request.POST['anno']
                     fecha = request.POST['fecha']
                     hora = request.POST['hora']
-                    print(fecha)
-                    print(hora)
-                    print(imagen)
+
                     registro = nueva_pelicula_xml(categoria, titulo, director, imagen, anno, fecha, hora)
                     if registro == 1:
                         pelicula = Pelicula(titulo, director, imagen, anno, fecha, hora)
@@ -278,3 +269,54 @@ def crear_peliculas(request):
                         "peliculas": lista_doble_ciruclar_peliculas,
                         "error": 'Ocurrio un error'
                     })
+                
+def administrar_salas(request):
+    lista_doble_enlazada_salas = cargar_salas_xml()
+    if request.method == 'GET':
+        return render(request, 'salas_administration.html', {
+            "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+            "salas": lista_doble_enlazada_salas
+        })
+
+def crear_sala(request):
+    if request.method == 'GET':
+        return render(request, 'crear_sala.html', {
+            "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+            "salas": lista_doble_enlazada_salas
+        })
+    else:
+        numero_sala = request.POST['sala']
+        asientos = request.POST['asientos']
+
+        nueva_sala = Sala(numero_sala, asientos)
+    
+        lista_doble_enlazada_salas.add(nueva_sala)
+        nueva_sala_xml(nueva_sala)
+        return redirect('administrar_salas')
+
+def eliminar_sala(request, sala):
+    try:
+        sala_eliminada = lista_doble_enlazada_salas.delete(sala)
+        if sala_eliminada == 1:
+            eliminar_sala_xml(sala)
+            print(f"Sala #USACIPC2_201807398_{sala} eliminada.")
+            return redirect('administrar_salas')
+    except ValueError:
+        print("Ocurrio un error desconocido")
+
+def modificar_sala(request, sala):
+    if request.method == 'GET':
+        return render(request, 'modificar_salas.html', {
+            "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+            "salas": lista_doble_enlazada_salas
+        })
+    else:
+        print(sala)
+        numero_sala_editada = request.POST['sala']
+        asientos = request.POST['asientos']
+        print(numero_sala_editada)
+
+        sala_editada, index = lista_doble_enlazada_salas.editar_sala(sala, numero_sala_editada, asientos)
+        modificar_sala_xml(sala_editada, index)
+        print(f"Se modifico la sala #USACIPC2_201807398_{sala}")
+        return redirect('administrar_salas')
