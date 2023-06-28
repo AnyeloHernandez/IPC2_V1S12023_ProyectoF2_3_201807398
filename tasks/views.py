@@ -104,10 +104,16 @@ def administrar_usuarios(request):
     
 def ver_cartelera(request):
     if request.method == 'GET':
-        return render(request, 'cartelera.html', {
-            "usuario": lista_enlazada_usuarios.usuario_logeado,
-            "peliculas": lista_doble_ciruclar_peliculas
-        })
+        if lista_enlazada_usuarios.usuario_logeado == "":
+            return render(request, 'cartelera.html', {
+                "usuario": 'Iniciar Sesión',
+                "peliculas": lista_doble_ciruclar_peliculas
+            })
+        else:
+            return render(request, 'cartelera.html', {
+                "usuario": lista_enlazada_usuarios.usuario_logeado,
+                "peliculas": lista_doble_ciruclar_peliculas
+            })
     
 def administrar_peliculas(request):
     lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
