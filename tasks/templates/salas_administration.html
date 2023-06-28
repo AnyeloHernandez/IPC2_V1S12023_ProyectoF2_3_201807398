@@ -1,0 +1,33 @@
+{% extends 'admin.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-sm border">
+        Número de sala
+      </div>
+      <div class="col-sm border">
+        Asientos
+      </div>
+      <div class="col-sm border">
+        Acciones
+      </div>
+    </div>
+      {% for sala in salas %}
+    <div class="row">
+        <div class="col-sm border">
+        {{sala.numero}}
+        </div>
+        <div class="col-sm border">
+            {{sala.asientos}}
+        </div>
+        <div class="col-sm border">
+          <a href="{% url 'modificar_sala' sala.numero %}"><button type="button" class="btn btn-warning"><i class="bi bi-building-fill-gear"></i>Editar</button></a>
+          <a href="{% url 'eliminar_sala' sala.numero %}"><button type="button" class="btn btn-danger"><i class="bi bi-building-fill-dash"></i>Eliminar</button></a>
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    <p style="color: cyan;">{{mensaje}}</p>
+    <a href="{% url 'crear_sala' %}"><button type="button" class="align-right btn btn-primary"><i class="bi bi-building-fill-add"></i>Crear Sala</button></a>
+  </div>
+{% endblock %}
