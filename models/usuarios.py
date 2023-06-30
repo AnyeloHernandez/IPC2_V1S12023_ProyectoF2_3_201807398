@@ -12,11 +12,12 @@ class Usuario:
         print("")
 
 class Boleto():
-    def __init__(self, cantidad, nombre, nit, direccion, correo, fecha, categoria):
+    def __init__(self, cantidad, nombre, nit, direccion, correo, fecha, pelicula, total):
+        self.total = total
         self.nit = nit
         self.nombre = nombre
         self.direccion = direccion
         self.cantidad = cantidad
         self.correo = correo
         self.fecha = fecha
-        self.categoria = categoria
+        self.pelicula = pelicula

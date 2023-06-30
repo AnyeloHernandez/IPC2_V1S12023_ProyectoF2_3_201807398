@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from models.carga_xml import *
 from django.views.defaults import permission_denied
+import time
 
-global lista_doble_ciruclar, lista_enlazada_usuarios, lista_doble_enlazada_salas
+global lista_doble_ciruclar, lista_enlazada_usuarios, lista_doble_enlazada_salas, incremental
 
+incremental = 0
 lista_doble_enlazada_salas = cargar_salas_xml()
 lista_enlazada_usuarios = cargar_usuarios_xml()
 lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
@@ -12,7 +14,7 @@ lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
 # Create your views here.
 def home(request):
     lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
-    print(lista_enlazada_usuarios.usuario_logeado)
+    # print(lista_enlazada_usuarios.usuario_logeado)
     # lista_doble_ciruclar_peliculas.imprimir_lista("2", None)
     if lista_enlazada_usuarios.usuario_logeado != '':
         return render(request, 'home.html', {
@@ -326,3 +328,56 @@ def modificar_sala(request, sala):
         modificar_sala_xml(sala_editada, index)
         print(f"Se modifico la sala #USACIPC2_201807398_{sala}")
         return redirect('administrar_salas')
+    
+def comprar_boletos(request, id):
+    if request.method == 'GET':
+        pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula(id)
+        if lista_enlazada_usuarios.usuario_logeado != "":
+            return render(request, 'comprar_boletos.html', {
+            "id": id,
+            "usuario": lista_enlazada_usuarios.usuario_logeado,
+            "pelicula": pelicula,
+            "salas": lista_doble_enlazada_salas
+            })
+        else:
+            return redirect('login')
+        
+def mostrar_factura(request):
+    global incremental
+    incremental += 1
+    if request.method == 'POST':
+        pelicula = request.POST.get('id')
+        metodo_pago = request.POST.get('pago')
+        pelicula = int(pelicula)
+        # Busca la pelicula por id
+        pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula(pelicula)
+        cant_boletos = request.POST.get('boletos')
+        numero_sala = request.POST.get('sala')
+        nombre = request.POST.get('nombre')
+        nit = request.POST.get('nit')
+        direccion = request.POST.get('direccion')
+        tarjeta = request.POST.get('tarjeta')        
+        numero_boleto = '#USACIPC2_201807398_' + str(incremental)
+
+        fecha = time.asctime()
+        total = (float(cant_boletos) * 48)
+        total = round(total, 2)
+
+        lista_enlazada_usuarios.insertar_boletos_comprados(
+            cant_boletos, nombre, nit, direccion, fecha, pelicula, total)
+        lista_enlazada_usuarios.historial_boletos_comprados()
+        datos_facturacion = {
+            "pelicula": pelicula,
+            "cant_boletos": cant_boletos,
+            "numero_sala": numero_sala,
+            "nombre": nombre,
+            "nit": nit,
+            "direccion": direccion,
+            "tarjeta": tarjeta,
+            "fecha": fecha,
+            "usuario": lista_enlazada_usuarios.usuario_logeado,
+            "metodo_pago": metodo_pago,
+            "total": total,
+            "numero_boleto": numero_boleto
+        }
+        return render(request, 'mostrar_factura.html', datos_facturacion)
