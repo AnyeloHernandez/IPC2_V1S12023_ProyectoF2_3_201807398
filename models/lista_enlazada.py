@@ -143,7 +143,9 @@ class ListaEnlazada:
     def eliminar_peliculas_favoritas(self, titulo):
         peliculas_favoritas = self.peliculas_favoritas
         print(self.usuario_logeado)
+        print(titulo)
         for pelicula, usuario in peliculas_favoritas:
+            
             if usuario == self.usuario_logeado and titulo == pelicula.pelicula.titulo:
                 peliculas_favoritas.remove((pelicula, usuario))
-                print(f"Se ha eliminado la pelicula {pelicula.pelicula.titulo}")
+                print(f"Se ha eliminado la pelicula {pelicula.pelicula.titulo} de favoritos")

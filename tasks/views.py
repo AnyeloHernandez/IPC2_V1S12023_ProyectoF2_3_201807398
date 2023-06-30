@@ -107,9 +107,13 @@ def administrar_usuarios(request):
 def ver_cartelera(request):
     if request.method == 'GET':
         if lista_enlazada_usuarios.usuario_logeado == "":
+            valores_unicos = set()
+            for pelicula in lista_doble_ciruclar_peliculas:
+                valores_unicos.add(pelicula.nombre)
             return render(request, 'cartelera.html', {
                 "usuario": 'Iniciar Sesión',
-                "peliculas": lista_doble_ciruclar_peliculas
+                "peliculas": lista_doble_ciruclar_peliculas,
+                "categoria": valores_unicos
             })
         else:
             return render(request, 'cartelera.html', {
@@ -342,7 +346,7 @@ def comprar_boletos(request, id):
         else:
             return redirect('login')
         
-def mostrar_factura(request):
+def mostrar_factura(request, id):
     global incremental
     incremental += 1
     if request.method == 'POST':
@@ -389,3 +393,22 @@ def historial_boletos(request):
             "usuario": lista_enlazada_usuarios.usuario_logeado,
             "historial_boletos": lista_enlazada_usuarios.boletos_comprados
         })
+    
+def pelicula_favorita(request, id):
+    pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula(id)
+    lista_enlazada_usuarios.insertar_peliculas_favoritas(pelicula)
+    return redirect('home')
+
+def ver_peliculas_favoritas(request):
+    return render(request, 'peliculas_favoritas.html', {
+        "usuario": lista_enlazada_usuarios.usuario_logeado,
+        "peliculas": lista_enlazada_usuarios.peliculas_favoritas
+    })
+
+def eliminar_favorito(request, titulo):
+    pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula_titulo(titulo)
+    lista_enlazada_usuarios.eliminar_peliculas_favoritas(pelicula.pelicula.titulo)
+    return redirect('peliculas_favoritas')
+
+def filtrar_categoria(request, categoria):
+    pass
