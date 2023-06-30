@@ -1,19 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+    <br>
+    <h2>Peliculas favoritas de {{usuario}}</h2>
+    <br>
     <div class="row">
       <div class="col-sm border">
-        
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categoria    
-          </button>
-          <ul class="dropdown-menu">
-            {% for valor in categoria %}
-            <li><a class="dropdown-item" href="{% url 'filtrar' valor %}">{{valor}}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
+        Categoria
       </div>
       <div class="col-sm border">
         Titulo
@@ -34,7 +27,8 @@
         Acciones
       </div>
     </div>
-      {% for pelicula in peliculas %}
+      {% for pelicula, user in peliculas %}
+      {% if user == usuario %}
     <div class="row">
         <div class="col-sm border">
         {{pelicula.nombre}}
@@ -55,12 +49,10 @@
             {{pelicula.pelicula.fecha}} {{pelicula.pelicula.hora}}
         </div>
         <div class="col-sm border">
-            <a href="{% url 'comprar_boletos' forloop.counter %}"><button type="button" class="btn btn-info">Comprar Boletos</button></a>
-            {% if usuario != 'Iniciar Sesión' %}
-            <a href="{% url 'favorito' forloop.counter %}"><button type="button" class="btn btn-warning"><i class="bi bi-star-fill"></i></button></a>
-            {% endif %}
+            <a href="{% url 'eliminar_favorito' pelicula.pelicula.titulo %}"><button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button></a>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
   </div>
 {% endblock %}
