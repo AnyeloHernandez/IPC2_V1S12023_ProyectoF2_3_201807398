@@ -38,5 +38,6 @@ urlpatterns = [
     path('salas/eliminar/<sala>', views.eliminar_sala, name='eliminar_sala'),
     path('salas/editar/<sala>', views.modificar_sala, name='modificar_sala'),
     path('comprar_boletos/<int:id>', views.comprar_boletos, name='comprar_boletos'),
-    path('comprar_boletos/mostrar_factura', views.mostrar_factura, name='mostrar_factura')
+    path('comprar_boletos/mostrar_factura', views.mostrar_factura, name='mostrar_factura'),
+    path('historial_boletos/', views.historial_boletos, name='historial_boletos')
 ]
