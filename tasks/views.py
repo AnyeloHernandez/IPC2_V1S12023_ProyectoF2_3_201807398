@@ -337,9 +337,10 @@ def modificar_sala(request, sala):
         print(f"Se modifico la sala #USACIPC2_201807398_{sala}")
         return redirect('administrar_salas')
     
-def comprar_boletos(request, id):
+def comprar_boletos(request, titulo):
     if request.method == 'GET':
-        pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula(id)
+        pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula_titulo(titulo)
+        
         if lista_enlazada_usuarios.usuario_logeado != "":
             return render(request, 'comprar_boletos.html', {
             "id": id,
@@ -350,15 +351,14 @@ def comprar_boletos(request, id):
         else:
             return redirect('login')
         
-def mostrar_factura(request, id):
+def mostrar_factura(request, titulo):
     global incremental
     incremental += 1
     if request.method == 'POST':
         pelicula = request.POST.get('id')
         metodo_pago = request.POST.get('pago')
-        pelicula = int(pelicula)
         # Busca la pelicula por id
-        pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula(pelicula)
+        pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula_titulo(titulo)
         cant_boletos = request.POST.get('boletos')
         numero_sala = request.POST.get('sala')
         nombre = request.POST.get('nombre')
@@ -398,8 +398,8 @@ def historial_boletos(request):
             "historial_boletos": lista_enlazada_usuarios.boletos_comprados
         })
     
-def pelicula_favorita(request, id):
-    pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula(id)
+def pelicula_favorita(request, titulo):
+    pelicula = lista_doble_ciruclar_peliculas.buscar_pelicula_titulo(titulo)
     lista_enlazada_usuarios.insertar_peliculas_favoritas(pelicula)
     return redirect('home')
 

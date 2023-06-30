@@ -55,9 +55,9 @@
             {{pelicula.pelicula.fecha}} {{pelicula.pelicula.hora}}
         </div>
         <div class="col-sm border">
-            <a href="{% url 'comprar_boletos' forloop.counter %}"><button type="button" class="btn btn-info">Comprar Boletos</button></a>
+            <a href="{% url 'comprar_boletos' pelicula.pelicula.titulo %}"><button type="button" class="btn btn-info">Comprar Boletos</button></a>
             {% if usuario != 'Iniciar Sesión' %}
-            <a href="{% url 'favorito' forloop.counter %}"><button type="button" class="btn btn-warning"><i class="bi bi-star-fill"></i></button></a>
+            <a href="{% url 'favorito' pelicula.pelicula.titulo %}"><button type="button" class="btn btn-warning"><i class="bi bi-star-fill"></i></button></a>
             {% endif %}
         </div>
     </div>
