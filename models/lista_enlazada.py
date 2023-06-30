@@ -99,9 +99,10 @@ class ListaEnlazada:
             anterior = actual
             actual = actual.siguiente
 
-    def insertar_boletos_comprados(self, numero_boleto, cantidad, nombre, nit, direccion, fecha, pelicula, total):
+    def insertar_boletos_comprados(
+            self, numero_sala, numero_boleto, cantidad, nombre, nit, direccion, fecha, pelicula, total):
         correo = self.usuario_logeado
-        boleto = Boleto(numero_boleto, cantidad, nombre, nit, direccion, correo, fecha, pelicula, total)
+        boleto = Boleto(numero_sala, numero_boleto, cantidad, nombre, nit, direccion, correo, fecha, pelicula, total)
         boletos_comprados = self.boletos_comprados
         boletos_comprados.append(boleto)
 
