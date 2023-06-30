@@ -4,6 +4,7 @@ from models.peliculas import Pelicula, Categoria
 class ListaDobleCircular:
     def __init__(self):
         self.head = None
+        self.peliculas_filtradas = []
 
     def __iter__(self):
         self.actual = self.head
