@@ -4,6 +4,7 @@ from models.peliculas import Pelicula, Categoria
 class ListaDobleCircular:
     def __init__(self):
         self.head = None
+        self.peliculas_filtradas = []
 
     def __iter__(self):
         self.actual = self.head
@@ -118,5 +119,20 @@ class ListaDobleCircular:
                 return actual.dato
             index += 1
             actual = actual.siguiente
+            if actual == self.head:
+                break
+
+    def buscar_pelicula_titulo(self, titulo):
+        actual = self.head
+
+        if actual is None:
+            return None
+
+        while True:
+            # Buscamos la pelicula por titulo
+            if titulo == actual.dato.pelicula.titulo:
+                return actual.dato
+            actual = actual.siguiente
+
             if actual == self.head:
                 break
