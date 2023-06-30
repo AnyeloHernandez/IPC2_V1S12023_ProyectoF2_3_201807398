@@ -99,9 +99,9 @@ class ListaEnlazada:
             anterior = actual
             actual = actual.siguiente
 
-    def insertar_boletos_comprados(self, cantidad, nombre, nit, direccion, fecha, categoria):
+    def insertar_boletos_comprados(self, cantidad, nombre, nit, direccion, fecha, pelicula, total):
         correo = self.usuario_logeado
-        boleto = Boleto(cantidad, nombre, nit, direccion, correo, fecha, categoria)
+        boleto = Boleto(cantidad, nombre, nit, direccion, correo, fecha, pelicula, total)
         boletos_comprados = self.boletos_comprados
         boletos_comprados.append(boleto)
 
@@ -110,12 +110,13 @@ class ListaEnlazada:
         print(f"Historial de {self.usuario_logeado}: \n")
         for boleto in boletos_comprados:
             if boleto.correo == self.usuario_logeado:
-                print(f"Titulo de la pelicula: {boleto.categoria.pelicula.titulo}")
+                print(f"Titulo de la pelicula: {boleto.pelicula.pelicula.titulo}")
                 print(f"Fecha de compra: {boleto.fecha}")
                 print(f"Asientos comprados: {boleto.cantidad}")
                 print(f"Nombre: {boleto.nombre}")
                 print(f"NIT: {boleto.nit}")
                 print(f"Direccón: {boleto.direccion}")
+                print(f"Total: {boleto.total}")
                 print("")
 
     def insertar_peliculas_favoritas(self, categoria):

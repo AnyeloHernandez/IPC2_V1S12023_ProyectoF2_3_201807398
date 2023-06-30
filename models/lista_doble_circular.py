@@ -107,15 +107,16 @@ class ListaDobleCircular:
             if actual == self.head:
                 break
 
-    def buscar_pelicula(self, titulo):
+    def buscar_pelicula(self, id):
         actual = self.head
-        temp = self.head
+        
         index = 1
 
-        while actual is not None:
+        while True:
             # Revisa que la pelicula exista
-            if actual.dato.pelicula.titulo == titulo:
-                return 1, actual.dato
+            if index == id:
+                return actual.dato
+            index += 1
             actual = actual.siguiente
-            if actual == temp:
+            if actual == self.head:
                 break

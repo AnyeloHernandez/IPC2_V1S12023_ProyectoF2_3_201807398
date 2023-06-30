@@ -36,5 +36,7 @@ urlpatterns = [
     path('salas/', views.administrar_salas, name='administrar_salas'),
     path('salas/crear/', views.crear_sala, name='crear_sala'),
     path('salas/eliminar/<sala>', views.eliminar_sala, name='eliminar_sala'),
-    path('salas/editar/<sala>', views.modificar_sala, name='modificar_sala')
+    path('salas/editar/<sala>', views.modificar_sala, name='modificar_sala'),
+    path('comprar_boletos/<int:id>', views.comprar_boletos, name='comprar_boletos'),
+    path('comprar_boletos/mostrar_factura', views.mostrar_factura, name='mostrar_factura')
 ]
