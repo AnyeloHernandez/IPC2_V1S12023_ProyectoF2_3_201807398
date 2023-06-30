@@ -145,7 +145,7 @@ class ListaDobleCircular:
 
         while True:
             # Buscamos la pelicula por categoria
-            print(actual.dato.nombre)
+            
             if categoria == actual.dato.nombre:
                 self.peliculas_filtradas.append(actual.dato)
             actual = actual.siguiente

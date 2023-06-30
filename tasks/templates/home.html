@@ -31,7 +31,7 @@
         <p class="slide-text">{{ pelicula.nombre }}</p>
         <p class="slide-text">{{ pelicula.pelicula.director }}</p>
         <p class="slide-text">{{ pelicula.pelicula.fecha }} {{ pelicula.pelicula.hora }}</p>
-        <a href="{% url 'comprar_boletos' forloop.counter %}" class="slide-link">Comprar Boletos</a>
+        <a href="{% url 'comprar_boletos' pelicula.pelicula.titulo %}" class="slide-link">Comprar Boletos</a>
       </div>
       <p class="slide-image">
         <img src="{{ pelicula.pelicula.imagen }}" alt="stuff" width="320" height="240">
