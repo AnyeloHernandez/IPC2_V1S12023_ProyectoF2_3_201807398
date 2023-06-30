@@ -364,7 +364,7 @@ def mostrar_factura(request):
         total = round(total, 2)
 
         lista_enlazada_usuarios.insertar_boletos_comprados(
-            cant_boletos, nombre, nit, direccion, fecha, pelicula, total)
+            numero_boleto, cant_boletos, nombre, nit, direccion, fecha, pelicula, total)
         lista_enlazada_usuarios.historial_boletos_comprados()
         datos_facturacion = {
             "pelicula": pelicula,
@@ -381,3 +381,10 @@ def mostrar_factura(request):
             "numero_boleto": numero_boleto
         }
         return render(request, 'mostrar_factura.html', datos_facturacion)
+    
+def historial_boletos(request):
+    if request.method == 'GET':
+        return render(request, 'historial_boletos.html', {
+            "usuario": lista_enlazada_usuarios.usuario_logeado,
+            "historial_boletos": lista_enlazada_usuarios.boletos_comprados
+        })

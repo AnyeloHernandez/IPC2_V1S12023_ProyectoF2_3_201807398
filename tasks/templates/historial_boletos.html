@@ -1,0 +1,65 @@
+{% extends 'home.html' %}
+{% block content %}
+{% for boleto in historial_boletos %}
+<div class="card">
+    <div class="card-body mx-4">
+      <div class="container">
+        <p class="my-5 mx-5" style="font-size: 30px;">Historial de compra de {{usuario}}:</p>
+        <div class="row">
+          <ul class="list-unstyled">
+            <li class="text-black">Orden de compra: {{boleto.numero_boleto}}</li>
+            <li class="text-black">Nombre: {{boleto.nombre}}</li>
+            <li class="text-black">Nit: {{boleto.nit}}</li>
+            <li class="text-black">Dirección: {{boleto.direccion}}</li>
+            <li class="text-black mt-1">Fecha de emisión: {{boleto.fecha}}</li>
+          </ul>
+          <div class="col-xl-10">
+            <p>Pelicula: {{boleto.pelicula.pelicula.titulo }}</p>
+          </div>
+          <br>
+          <div>
+            <p>DESCRIPCION</p>
+          </div>
+          <hr>
+          <div class="col-xl-10">
+            <p>Cine:<br> Cine ABC</p>
+          </div>
+          <div class="col-xl-2">
+            <p class="float-end">
+            </p>
+          </div>
+          <div class="col-xl-10">
+            <p>Sala:<br>{{boleto.numero_sala}}</p>
+          </div>
+          <div class="col-xl-2">
+            <p class="float-end">
+            </p>
+          </div>
+          <div class="col-xl-10">
+            <p>Boletos ({{boleto.cantidad}})</p>
+          </div>
+          <div class="col-xl-2">
+            <p class="float-end">({{boleto.cantidad}}) x Q. 48.00
+            </p>
+          </div>
+          
+          <hr style="border: 2px solid black;">
+        </div>
+        <div class="row text-black">
+  
+          <div class="col-xl-12">
+            <p class="float-end fw-bold">Total: Q. {{boleto.total}}0
+            </p>
+          </div>
+          <hr style="border: 2px solid black;">
+        </div>
+        <div class="text-center" style="margin-top: 90px;">
+          <a href="{% url 'home' %}"><u class="text-info">Regresar al menu Inicio</u></a>
+          <p class="text-muted">Si lees esto llegaste hasta aqui. </p>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}
