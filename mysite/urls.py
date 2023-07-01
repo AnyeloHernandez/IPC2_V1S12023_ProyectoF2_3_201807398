@@ -43,5 +43,7 @@ urlpatterns = [
     path('favorito/<str:titulo>', views.pelicula_favorita, name='favorito'),
     path('peliculas_favoritas/', views.ver_peliculas_favoritas, name='peliculas_favoritas'),
     path('eliminar_favorito/<str:titulo>/', views.eliminar_favorito, name='eliminar_favorito'),
-    path('cartelera/filtrar/<str:categoria>', views.filtrar_categoria, name='filtrar')
+    path('cartelera/filtrar/<str:categoria>', views.filtrar_categoria, name='filtrar'),
+    path('tarjetas/', views.administrar_tarjetas, name='administrar_tarjetas'),
+    path('tarjetas/elimianr/<str:numero>', views.eliminar_tarjetas, name='eliminar_tarjeta')
 ]

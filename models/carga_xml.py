@@ -1,10 +1,11 @@
 import xml.etree.ElementTree as ET
-from models.usuarios import Usuario
+from models.usuarios import Usuario, Tarjeta
 from models.salas import Sala
 from models.peliculas import Pelicula, Categoria
 from models.lista_enlazada import ListaEnlazada
 from models.lista_doble_enlazada import ListaDobleEnlazada
 from models.lista_doble_circular import ListaDobleCircular
+from models.lista_doble_enlazada_tarjetas import ListaDobleEnlazadaTarjetas
 
 def cargar_usuarios_xml():
     tree = ET.parse('db/usuarios.xml')
@@ -263,3 +264,19 @@ def modificar_sala_xml(sala_editada, index):
     asientos.text = sala_editada.asientos
 
     tree.write('db/salas.xml')
+
+def cargar_tarjetas_xml():
+    tree = ET.parse('db/tarjetas.xml')
+    root = tree.getroot()
+    listadobleenlazadatarjetas = ListaDobleEnlazadaTarjetas()
+    for tarjeta in root.findall('tarjeta'):
+        tipo = tarjeta.find('tipo').text
+        numero = tarjeta.find('numero').text
+        titular = tarjeta.find('titular').text
+        fecha_expiracion = tarjeta.find('fecha_expiracion').text
+
+        tarjeta = Tarjeta(tipo, numero, titular, fecha_expiracion)
+        # Lo añadimos a la Lista Enlazada
+        listadobleenlazadatarjetas.add(tarjeta)
+        # print(f"nombre: {nombre} {apellido}, telefono: {telefono}, correo {correo}")
+    return listadobleenlazadatarjetas

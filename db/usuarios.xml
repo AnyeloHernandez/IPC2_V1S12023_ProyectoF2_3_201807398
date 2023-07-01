@@ -1,10 +1,10 @@
 <usuarios><usuario>
 <rol>cliente</rol>
-<nombre>prueba</nombre>
-<apellido>editar</apellido>
-<telefono>123456789</telefono>
-<correo>john.doe@example.com</correo>
-<contrasena>mipassword123</contrasena>
+<nombre>pruebaaa</nombre>
+<apellido>2</apellido>
+<telefono>213</telefono>
+<correo>321@321222</correo>
+<contrasena>321</contrasena>
 </usuario>
 <usuario>
 <rol>administrador</rol>
