@@ -11,6 +11,8 @@ incremental = 0
 lista_doble_enlazada_salas = cargar_salas_xml()
 lista_enlazada_usuarios = cargar_usuarios_xml()
 lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
+lista_doble_enlazada_tarjetas = cargar_tarjetas_xml()
+
 response = requests.get('http://127.0.0.1:5007/getUsuarios')
 api = response.json()
 # print(api)
@@ -43,12 +45,23 @@ response = requests.get('http://127.0.0.1:5007/getSalas')
 api = response.json()
 
 for cine in api['cine']['salas']['sala']:
-    print(cine)
     numero = cine['numero']
     asientos = cine['asientos']
 
     nueva_sala = Sala(numero, asientos)
     lista_doble_enlazada_salas.add(nueva_sala)
+
+response = requests.get('http://127.0.0.1:5007/getTarjetas')
+api = response.json()
+
+for tarjeta in api['tarjeta']:
+    tipo = tarjeta['tipo']
+    numero = tarjeta['numero']
+    titular = tarjeta['titular']
+    fecha_expiracion = tarjeta['fecha_expiracion']
+
+    tarjeta = Tarjeta(tipo, numero, titular, fecha_expiracion)
+    lista_doble_enlazada_tarjetas.add(tarjeta)
     
 # Create your views here.
 def home(request):
@@ -516,4 +529,25 @@ def filtrar_categoria(request, categoria):
             "usuario": "Iniciar Sesión",
             "peliculas": pelicula,
             "categoria": valores_unicos
+        })
+    
+def administrar_tarjetas(request):
+    return render(request, 'tarjetas_administration.html', {
+        "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+        "tarjetas": lista_doble_enlazada_tarjetas
+    })
+
+def eliminar_tarjetas(request, numero):
+    tarjeta_eliminada = lista_doble_enlazada_tarjetas.delete(numero)
+    if tarjeta_eliminada == 1:
+        # eliminar tarjeta xml
+        print(f"Se elimino la tarjeta: {numero}")
+        return render(request, 'tarjetas_administration.html', {
+            "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+            "tarjetas": lista_doble_enlazada_tarjetas
+        })
+    else:
+        return render(request, 'tarjetas_administration.html', {
+            "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
+            "tarjetas": lista_doble_enlazada_tarjetas
         })

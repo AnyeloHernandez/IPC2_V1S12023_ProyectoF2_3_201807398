@@ -23,3 +23,13 @@ class Boleto():
         self.correo = correo
         self.fecha = fecha
         self.pelicula = pelicula
+
+class Tarjeta():
+    def __init__(self, tipo, numero, titular, fecha_expiracion):
+        self.tipo = tipo
+        self.numero = numero
+        self.titular = titular
+        self.fecha_expiracion = fecha_expiracion
+
+    def imprimir_tarjetas(self):
+        print(f"Tipo: {self.tipo}\nNumero: {self.numero}\nTitulo: {self.titulo}\nFecha Exp: {self.fecha_expiracion}\n")
