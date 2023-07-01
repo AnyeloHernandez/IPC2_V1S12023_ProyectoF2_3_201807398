@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from models.carga_xml import *
 from django.views.defaults import permission_denied
+import requests
 import time
 
 global lista_doble_ciruclar, lista_enlazada_usuarios, lista_doble_enlazada_salas, incremental
@@ -10,10 +11,65 @@ incremental = 0
 lista_doble_enlazada_salas = cargar_salas_xml()
 lista_enlazada_usuarios = cargar_usuarios_xml()
 lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
+response = requests.get('http://127.0.0.1:5007/getUsuarios')
+api = response.json()
+# print(api)
+for usuarios in api:
+    usuario = Usuario(
+        usuarios['rol'], usuarios['nombre'], usuarios['apellido'],
+        usuarios['telefono'], usuarios['correo'], usuarios['contrasenna'])
+    lista_enlazada_usuarios.add(usuario)
 
+response = requests.get('http://127.0.0.1:5007/getPeliculas')
+api = response.json()
+
+for categoria in api['categoria']:
+    nombre_categoria = categoria['nombre']
+
+    peliculas = categoria['peliculas']['pelicula']
+    for pelicula in peliculas:
+        titulo = pelicula['titulo']
+        director = pelicula['director']
+        imagen = pelicula['imagen']
+        anno = pelicula['anio']
+        fecha = pelicula['fecha']
+        hora = pelicula['hora']
+
+        pelicula = Pelicula(titulo, director, imagen, anno, fecha, hora)
+        cate = Categoria(nombre_categoria, pelicula)
+        lista_doble_ciruclar_peliculas.add(cate)
+        
+response = requests.get('http://127.0.0.1:5007/getSalas')
+api = response.json()
+
+for cine in api['cine']['salas']['sala']:
+    print(cine)
+    numero = cine['numero']
+    asientos = cine['asientos']
+
+    nueva_sala = Sala(numero, asientos)
+    lista_doble_enlazada_salas.add(nueva_sala)
+    
 # Create your views here.
 def home(request):
     lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
+    response = requests.get('http://127.0.0.1:5007/getPeliculas')
+    api = response.json()
+    for categoria in api['categoria']:
+        nombre_categoria = categoria['nombre']
+
+        peliculas = categoria['peliculas']['pelicula']
+        for pelicula in peliculas:
+            titulo = pelicula['titulo']
+            director = pelicula['director']
+            imagen = pelicula['imagen']
+            anno = pelicula['anio']
+            fecha = pelicula['fecha']
+            hora = pelicula['hora']
+
+            pelicula = Pelicula(titulo, director, imagen, anno, fecha, hora)
+            cate = Categoria(nombre_categoria, pelicula)
+            lista_doble_ciruclar_peliculas.add(cate)
     # print(lista_enlazada_usuarios.usuario_logeado)
     # lista_doble_ciruclar_peliculas.imprimir_lista("2", None)
     if lista_enlazada_usuarios.usuario_logeado != '':
@@ -127,6 +183,23 @@ def ver_cartelera(request):
     
 def administrar_peliculas(request):
     lista_doble_ciruclar_peliculas = cargar_peliculas_xml()
+    response = requests.get('http://127.0.0.1:5007/getPeliculas')
+    api = response.json()
+    for categoria in api['categoria']:
+        nombre_categoria = categoria['nombre']
+
+        peliculas = categoria['peliculas']['pelicula']
+        for pelicula in peliculas:
+            titulo = pelicula['titulo']
+            director = pelicula['director']
+            imagen = pelicula['imagen']
+            anno = pelicula['anio']
+            fecha = pelicula['fecha']
+            hora = pelicula['hora']
+
+            pelicula = Pelicula(titulo, director, imagen, anno, fecha, hora)
+            cate = Categoria(nombre_categoria, pelicula)
+            lista_doble_ciruclar_peliculas.add(cate)
     if request.method == 'GET':
         return render(request, 'movies_administration.html', {
             "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
@@ -288,6 +361,16 @@ def crear_peliculas(request):
                 
 def administrar_salas(request):
     lista_doble_enlazada_salas = cargar_salas_xml()
+    response = requests.get('http://127.0.0.1:5007/getSalas')
+    api = response.json()
+
+    for cine in api['cine']['salas']['sala']:
+        print(cine)
+        numero = cine['numero']
+        asientos = cine['asientos']
+
+        nueva_sala = Sala(numero, asientos)
+        lista_doble_enlazada_salas.add(nueva_sala)
     if request.method == 'GET':
         return render(request, 'salas_administration.html', {
             "usuario_logeado": lista_enlazada_usuarios.usuario_logeado,
