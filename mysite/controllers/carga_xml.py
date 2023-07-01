@@ -107,7 +107,6 @@ def modificar_pelicula_xml(cate, index):
 
             titulo = peliculas.find(f'pelicula[{index}]/titulo')
             director = peliculas.find(f'pelicula[{index}]/director')
-            imagen = peliculas.find(f'pelicula[{index}]/imagen')
             anno = peliculas.find(f'pelicula[{index}]/anio')
             fecha = peliculas.find(f'pelicula[{index}]/fecha')
             hora = peliculas.find(f'pelicula[{index}]/hora')
@@ -115,7 +114,6 @@ def modificar_pelicula_xml(cate, index):
             # Editamos el XML
             titulo.text = cate.pelicula.titulo
             director.text = cate.pelicula.director
-            imagen.text = cate.pelicula.imagen
             anno.text = cate.pelicula.anno
             fecha.text = cate.pelicula.fecha
             hora.text = cate.pelicula.hora
@@ -139,10 +137,10 @@ def cargar_peliculas_xml():
            titulo = pelicula.find('titulo').text
            director = pelicula.find('director').text
            anno = pelicula.find('anio').text
+           imagen = pelicula.find('imagen').text
            fecha = pelicula.find('fecha').text
            hora = pelicula.find('hora').text
-           imagen = pelicula.find('imagen').text
-           peli = Pelicula(titulo, director, imagen, anno, fecha, hora)
+           peli = Pelicula(titulo, director, anno, fecha, hora, imagen)
            cate = Categoria(nombre_categoria, peli)
            #print(cate.nombre)
            #print(cate.pelicula.titulo)
@@ -164,7 +162,7 @@ def nueva_categoria_xml(nombre):
     root.append(categoria)
     tree.write('db/peliculas.xml')
 
-def nueva_pelicula_xml(categoria, titulo, director, imagen, anno, fecha, hora):
+def nueva_pelicula_xml(categoria, titulo, director, anno, fecha, hora):
     tree = ET.parse('db/peliculas.xml')
     root = tree.getroot()
 
@@ -172,7 +170,6 @@ def nueva_pelicula_xml(categoria, titulo, director, imagen, anno, fecha, hora):
     <pelicula>
     <titulo>{titulo}</titulo>
     <director>{director}</director>
-    <imagen>{imagen}</imagen>
     <anio>{anno}</anio>
     <fecha>{fecha}</fecha>
     <hora>{hora}</hora>
@@ -236,6 +233,7 @@ def nueva_sala_xml(sala):
     print("Se ha habilitado la sala correctamente.")
 
 def eliminar_sala_xml(numero_sala):
+    sala_eliminada = "#USACIPC2_201807398_" + str(numero_sala)
     tree = ET.parse('db/salas.xml')
     root = tree.getroot()
 
@@ -244,7 +242,7 @@ def eliminar_sala_xml(numero_sala):
 
     # Busca la sala y si la encuentra la elimina
     for sala in salas.findall('sala'):
-        if sala.find('numero').text == numero_sala:
+        if sala.find('numero').text == sala_eliminada:
             salas.remove(sala)
             tree.write('db/salas.xml')
             break

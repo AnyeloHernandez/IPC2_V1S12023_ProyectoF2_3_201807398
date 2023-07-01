@@ -16,6 +16,12 @@
     </sala><sala>
     <numero>#USACIPC2_201807398_32</numero>
     <asientos>32</asientos>
+    </sala><sala>
+    <numero>#USACIPC2_201807398_23</numero>
+    <asientos>344</asientos>
+    </sala><sala>
+    <numero>#USACIPC2_201807398_22</numero>
+    <asientos>33</asientos>
     </sala></salas>
 </cine>
 </cines>

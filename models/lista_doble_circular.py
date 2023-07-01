@@ -4,6 +4,20 @@ from models.peliculas import Pelicula, Categoria
 class ListaDobleCircular:
     def __init__(self):
         self.head = None
+        self.peliculas_filtradas = []
+
+    def __iter__(self):
+        self.actual = self.head
+        return self
+    
+    def __next__(self):
+        if self.actual is None:
+            raise StopIteration  
+        data = self.actual.dato  
+        self.actual = self.actual.siguiente
+        if self.actual == self.head:
+            self.actual = None 
+        return data
 
     def add(self, dato):
         nodo = Nodo(dato)
@@ -23,14 +37,23 @@ class ListaDobleCircular:
 
     def delete(self, titulo):
         actual = self.head
-        temp = self.head
-        while actual is not None:
+
+        if actual is None:
+            return print("La lista esta vacia")
+        
+        while True:
             if actual.dato.pelicula.titulo == titulo:
-                actual.anterior.siguiente = actual.siguiente
-                actual.siguiente.anterior = actual.anterior
+                if actual.siguiente == actual:
+                    self.head = None
+                else:
+                    actual.anterior.siguiente = actual.siguiente
+                    actual.siguiente.anterior = actual.anterior
+
+                    if actual == self.head:
+                        self.head = actual.siguiente
                 return 1
             actual = actual.siguiente
-            if actual == temp:
+            if actual == self.head:
                 return print("No se encontro la pelicula.")
                 
 
@@ -50,36 +73,82 @@ class ListaDobleCircular:
         else:
             print("La lista esta vacia.")
 
-    def editar_peliculas(self, titulo):
+    def editar_peliculas(
+            self, categoria, titulo, titulo_editado, director, imagen, anno, fecha, hora):
         actual = self.head
-        temp = self.head
         index = 1
-        while actual is not None:
+        temp = actual.dato.nombre
+
+        if actual is None:
+            return None
+
+        while True:
+            print(actual.dato.nombre)
             if actual.dato.pelicula.titulo == titulo:
                 #pide los datos nuevos
                 # categoria = input(f"Ingrese la categoria [{actual.dato.nombre}]: ") or actual.dato.nombre
-                titulo = input(f"Ingrese el titulo [{actual.dato.pelicula.titulo}]: ") or actual.dato.pelicula.titulo
-                director = input(f"Ingrese el director [{actual.dato.pelicula.director}]: ") or actual.dato.pelicula.director
-                anno = input(f"Ingrese el año [{actual.dato.pelicula.anno}]: ") or actual.dato.pelicula.anno
-                fecha = input(f"Ingrese la fecha [{actual.dato.pelicula.fecha}]: ") or actual.dato.pelicula.fecha
-                hora = input(f"Ingrese la hora [{actual.dato.pelicula.hora}]: ") or actual.dato.pelicula.hora
-                pelicula = Pelicula(titulo, director, anno, fecha, hora)
-                cate = Categoria(actual.dato.nombre , pelicula)
+                
+                # actual.dato.nombre = categoria
+                # actual.dato.categoria.titulo = titulo
+                # actual.dato.categoria.direcor = director
+                # actual.dato.categoria.imagen = imagen
+                # actual.dato.categoria.anno = anno
+                # actual.dato.categoria.fecha = fecha
+                # actual.dato.categoria.hora = hora
+
+                pelicula = Pelicula(titulo, director, imagen, anno, fecha, hora)                
+                cate = Categoria(actual.dato.nombre, pelicula)
+                
                 return cate, index
-            index += 1
+            if actual.dato.nombre != temp:
+                index = 1
+            else:
+                index += 1
             actual = actual.siguiente
-            if actual == temp:
+            if actual == self.head:
                 break
 
-    def buscar_pelicula(self, titulo):
+    def buscar_pelicula(self, id):
         actual = self.head
-        temp = self.head
+        
         index = 1
 
-        while actual is not None:
+        while True:
             # Revisa que la pelicula exista
-            if actual.dato.pelicula.titulo == titulo:
-                return 1, actual.dato
+            if index == id:
+                return actual.dato
+            index += 1
             actual = actual.siguiente
-            if actual == temp:
+            if actual == self.head:
                 break
+
+    def buscar_pelicula_titulo(self, titulo):
+        actual = self.head
+
+        if actual is None:
+            return None
+
+        while True:
+            # Buscamos la pelicula por titulo
+            if titulo == actual.dato.pelicula.titulo:
+                return actual.dato
+            actual = actual.siguiente
+
+            if actual == self.head:
+                break
+
+    def buscar_pelicula_categoria(self, categoria):
+        actual = self.head
+
+        if actual is None:
+            return None
+
+        while True:
+            # Buscamos la pelicula por categoria
+            
+            if categoria == actual.dato.nombre:
+                self.peliculas_filtradas.append(actual.dato)
+            actual = actual.siguiente
+
+            if actual == self.head:
+                return self.peliculas_filtradas

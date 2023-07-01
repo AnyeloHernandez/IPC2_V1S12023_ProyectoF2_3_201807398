@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% load static %}
-        <title>Registrarse</title>
-        <link rel="stylesheet" href="{% static 'css/divlogin.css' %}" >
-        {% load bootstrap5 %}
-        {% bootstrap_css %}
-        {% bootstrap_javascript %}
-    </head>
-    <body>
-<h1>Registrarse</h1>
-    <div class="tab-pane" id="registrar" role="tabpanel" aria-labelledby="tab-register">
+{% extends 'admin.html' %}
+{% block content %}
+<div class="tab-pane w-100 m-auto">
+<h1>Creando usuario...</h1>
+    <div class="tab-pane" id="crear" role="tabpanel" aria-labelledby="tab-crear">
       <form method="POST">  
         {% csrf_token %}
+        <div class="form-outline mb-4">
+            <input type="text" name="rol" id="rol" class="form-control" />
+            <label class="form-label" for="rol">Rol</label>
+          </div>
         <!-- Name input -->
         <div class="form-outline mb-4">
           <input type="text" name="nombre" id="nombre" class="form-control" />
@@ -51,9 +47,9 @@
   
         <!-- Submit button -->
         <p style="color: red;">{{error}}</p>
-        <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
+        <button type="primary" class="btn btn-primary btn-block mb-3">Crear Usuario</button>
       </form>
     </div>
   </div>
-    </body>
-    </html>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <br>
+    <h2>Peliculas favoritas de {{usuario}}</h2>
+    <br>
+    <div class="row">
+      <div class="col-sm border">
+        Categoria
+      </div>
+      <div class="col-sm border">
+        Titulo
+      </div>
+      <div class="col-sm border">
+        Director(es)
+      </div>
+      <div class="col-sm border">
+        Imagen
+      </div>
+      <div class="col-sm border">
+        Año
+      </div>
+      <div class="col-sm border">
+        Fecha y Hora
+      </div>
+      <div class="col-sm border">
+        Acciones
+      </div>
+    </div>
+      {% for pelicula, user in peliculas %}
+      {% if user == usuario %}
+    <div class="row">
+        <div class="col-sm border">
+        {{pelicula.nombre}}
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.titulo}}
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.director}}
+        </div>
+        <div class="col-sm border">
+            <img src="{{pelicula.pelicula.imagen}}" alt="" width="160" height="115">
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.anno}}
+        </div>
+        <div class="col-sm border">
+            {{pelicula.pelicula.fecha}} {{pelicula.pelicula.hora}}
+        </div>
+        <div class="col-sm border">
+            <a href="{% url 'eliminar_favorito' pelicula.pelicula.titulo %}"><button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button></a>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

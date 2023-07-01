@@ -1,1 +1,44 @@
-<h1>home</h1>
+{% extends 'base.html' %}
+{% block content %}
+  <div class="slider">
+    {% for pelicula in peliculas %}
+    {% if forloop.counter <= 8 %}
+    <input type="radio" name="toggle" id="btn-{{ forloop.counter }}" {% if forloop.counter == 1 %} checked {% endif%}>
+    {% endif %}
+    {% endfor %}
+
+    <div class="slider-controls">
+      {% for pelicula in peliculas %}
+      {% if forloop.counter <= 8 %}
+      <label for="btn-{{ forloop.counter }}"></label>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <ul class="slides">
+    {% for pelicula in peliculas %}
+    {% if forloop.counter >= 8 %}
+    <li class="slide">
+      <div class="slide-content">
+        <h2 class="slide-title">Y muchas peliculas más</h2>
+        <a href="{% url 'cartelera' %}" class="slide-link">Ver más peliculas...</a>
+    </div>
+    </li>
+    {% else %}
+    <li class="slide">
+      <div class="slide-content">
+        <h4 class="slide-title">{{ pelicula.pelicula.titulo }}</h4>
+        <p class="slide-text">{{ pelicula.nombre }}</p>
+        <p class="slide-text">{{ pelicula.pelicula.director }}</p>
+        <p class="slide-text">{{ pelicula.pelicula.fecha }} {{ pelicula.pelicula.hora }}</p>
+        <a href="{% url 'comprar_boletos' pelicula.pelicula.titulo %}" class="slide-link">Comprar Boletos</a>
+      </div>
+      <p class="slide-image">
+        <img src="{{ pelicula.pelicula.imagen }}" alt="stuff" width="320" height="240">
+      </p>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  </div>
+{% endblock %}

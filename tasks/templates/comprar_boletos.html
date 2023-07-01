@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <img class="card-img-top" src="{{pelicula.pelicula.imagen}}" alt="Card image cap" width="120" height="600">
+        
+        <div class="card-body">
+          <h5 class="card-title">{{pelicula.pelicula.titulo}}</h5>
+          <p class="card-text">Fecha y Hora de proyección: {{pelicula.pelicula.fecha}} {{pelicula.pelicula.hora}}</p><br>
+          <div class="card-text">
+            <form action="mostrar_factura" method="POST">
+              {% csrf_token %}
+              <input type="number" name="id" id="id" class="form-control" min="1" max="100" value="{{id}}" hidden>
+              
+              <div class="form-outline mb-4">
+                <input type="number" name="boletos" id="boletos" class="form-control" min="1" max="100">
+                <label class="form-label" for="boletos">Cant. Boletos (Precio por asiento: Q48)</label>
+              </div>
+              <div class="form-outline mb-4">
+                <label for="sala">Número de sala: </label>
+                  <select name="sala" id="sala">
+                    {% for sala in salas %}
+                    <option value="{{sala.numero}}">{{sala.numero}}</option>
+                    {% endfor %}
+                  </select>
+              </div>
+              <fieldset>
+                <legend>Seleccione un método de pago: </legend>
+                <p> 
+                  <input type="radio" id="efectivo" name="pago" value="efectivo" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" checked>
+                  <label for="efectivo">Efectivo</label>
+                    <input type="radio" id="tarjeta" name="pago" value="tarjeta" 
+                    data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <label for="tarjeta">Tarjeta</label>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <div class="form-outline mb-4">
+                      <label for="tarjeta">Tarjeta: </label>
+                        <select name="tarjeta" id="tarjeta">
+                          
+                          <option value="tarjetanumerooo">1</option>
+                          
+                        </select>
+                        <button type="button" class="btn btn-outline-primary">Añadir Tarjeta de débito/crédito</button>
+                    </div>
+                  </div>
+                </div>              
+                </fieldset>
+
+                <br>
+
+                <div class="container">
+                  <div class="tab-pane w-100 m-auto">
+                          <input type="number" name="id" id="id" class="form-control" min="1" max="100" value="{{id}}" hidden>
+                          <input type="number" name="cant_boletos" id="cant_boletos" class="form-control" min="1" max="100" value="{{id}}" hidden>
+                          <input type="number" name="numero_sala" id="numero_sala" class="form-control" min="1" max="100" value="{{id}}" hidden>
+                          <h1>Facturación</h1>
+                          <div class="form-outline mb-4">
+                              <input type="text" name="nombre" id="nombre" class="form-control">
+                              <label class="form-label" for="nombre">Nombre y apellido</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <input type="text" name="nit" id="nit" class="form-control">
+                              <label class="form-label" for="nit">NIT</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <input type="text" name="direccion" id="direccion" class="form-control">
+                              <label class="form-label" for="direccion">Dirección</label>
+                            </div>
+
+                          <button type="submit" class="btn btn-primary">Ingresar</button>
+                        </form>
+                      </div>
+                  </div>
+
+              </form>
+              </div>
+            </div>         
+      </div>
+  </div>
+{% endblock %}

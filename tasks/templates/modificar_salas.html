@@ -1,0 +1,27 @@
+{% extends 'admin.html' %}
+{% block content %}
+<div class="tab-pane w-100 m-auto">
+<h1>Editando sala...</h1>
+    <div class="tab-pane" id="crear" role="tabpanel" aria-labelledby="tab-crear">
+      <form method="POST">  
+        {% csrf_token %}
+        <div class="form-outline mb-4">
+          <div class="grid-container">
+            <div class="elemento">#USACIPC2_201807398_</div>
+            <div class="elemento"><input type="number" name="sala" id="sala" class="form-control" min="1" max="100"></div>
+            <div class="elemento"><label class="form-label" for="sala">Sala</label></div>
+          </div>
+          </div>
+        
+        <div class="form-outline mb-4">
+          <input type="text" name="asientos" id="asientos" class="form-control">
+          <label class="form-label" for="asientos">Asientos</label>
+        </div>
+  
+        <p style="color: red;">{{error}}</p>
+        <button type="primary" class="btn btn-primary btn-block mb-3">Editar sala</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
